@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moral Education Quiz</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+
+        .question {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .options {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .options li {
+            margin-bottom: 10px;
+        }
+
+        .options label {
+            display: block;
+            padding: 10px;
+            background-color: rgba(224, 224, 224, 0.7);
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .options label:hover {
+            background-color: rgba(208, 208, 208, 0.9);
+        }
+
+        input[type="radio"] {
+            margin-right: 10px;
+        }
+
+        .submit-btn, .back-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .submit-btn:hover, .back-btn:hover {
+            background-color: #2980b9;
+        }
+
+        .back-btn {
+            background-color: #95a5a6;
+        }
+
+        .back-btn:hover {
+            background-color: #7f8c8d;
+        }
+
+        #timer {
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        #result {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 30px;
+            display: none;
+        }
+
+        .correct {
+            color: #27ae60;
+            font-weight: bold;
+        }
+
+        .incorrect {
+            color: #c0392b;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Moral Education Quiz</h1>
+        <div id="timer">Time: 00:00</div>
+        <form id="quiz-form">
+            <div class="question">
+                <p>1. What is the primary goal of moral education?</p>
+                <ul class="options">
+                    <li><label><input type="radio" name="q1" value="A"> A) To increase academic performance</label></li>
+                    <li><label><input type="radio" name="q1" value="B"> B) To develop character and ethical reasoning</label></li>
+                    <li><label><input type="radio" name="q1" value="C"> C) To prepare for standardized tests</label></li>
+                    <li><label><input type="radio" name="q1" value="D"> D) To promote physical fitness</label></li>
+                </ul>
+            </div>
+
+            <div class="question">
+                <p>2. Which of the following is a core value often emphasized in moral education?</p>
+                <ul class="options">
+                    <li><label><input type="radio" name="q2" value="A"> A) Wealth</label></li>
+                    <li><label><input type="radio" name="q2" value="B"> B) Honesty</label></li>
+                    <li><label><input type="radio" name="q2" value="C"> C) Popularity</label></li>
+                    <li><label><input type="radio" name="q2" value="D"> D) Competition</label></li>
+                </ul>
+            </div>
+
+            <div class="question">
+                <p>3. Which approach emphasizes teaching moral principles through real-life scenarios?</p>
+                <ul class="options">
+                    <li><label><input type="radio" name="q3" value="A"> A) Behavioral approach</label></li>
+                    <li><label><input type="radio" name="q3" value="B"> B) Experiential learning</label></li>
+                    <li><label><input type="radio" name="q3" value="C"> C) Rote memorization</label></li>
+                    <li><label><input type="radio" name="q3" value="D"> D) Lecture-based instruction</label></li>
+                </ul>
+            </div>
+
+            <div class="question">
+                <p>4. What role do stories and parables play in moral education?</p>
+                <ul class="options">
+                    <li><label><input type="radio" name="q4" value="A"> A) They entertain students.</label></li>
+                    <li><label><input type="radio" name="q4" value="B"> B) They provide complex narratives.</label></li>
+                    <li><label><input type="radio" name="q4" value="C"> C) They illustrate moral dilemmas and lessons.</label></li>
+                    <li><label><input type="radio" name="q4" value="D"> D) They focus on historical events.</label></li>
+                </ul>
+            </div>
+
+            <div class="question">
+                <p>5. Which of the following methods is effective in promoting moral reasoning among students?</p>
+                <ul class="options">
+                    <li><label><input type="radio" name="q5" value="A"> A) Punishment for wrong actions</label></li>
+                    <li><label><input type="radio" name="q5" value="B"> B) Open discussions about ethical dilemmas</label></li>
+                    <li><label><input type="radio" name="q5" value="C"> C) Strict adherence to rules</label></li>
+                    <li><label><input type="radio" name="q5" value="D"> D) Ignoring moral issues</label></li>
+                </ul>
+            </div>
+
+            <div class="question">
+                <p>6. What is the significance of empathy in moral education?</p>
+                <ul class="options">
+                    <li><label><input type="radio" name="q6" value="A"> A) It helps in winning arguments.</label></li>
+                    <li><label><input type="radio" name="q6" value="B"> B) It fosters understanding and compassion towards others.</label></li>
+                    <li><label><input type="radio" name="q6" value="C"> C) It encourages isolation from differing viewpoints.</label></li>
+                    <li><label><input type="radio" name="q6" value="D"> D) It promotes self-interest.</label></li>
+                </ul>
+            </div>
+
+            <div class="question">
+                <p>7. Which philosopher is known for his work on virtue ethics?</p>
+                <ul class="options">
+                    <li><label><input type="radio" name="q7" value="A"> A) Immanuel Kant</label></li>
+                    <li><label><input type="radio" name="q7" value="B"> B) John Stuart Mill</label></li>
+                    <li><label><input type="radio" name="q7" value="C"> C) Aristotle</label></li>
+                    <li><label><input type="radio" name="q7" value="D"> D) Friedrich Nietzsche</label></li>
+                </ul>
+            </div>
+            <div class="question">
+                <p>8. What is one common criticism of moral education programs?</p>
+                <ul class="options">
+                    <li><label><input type="radio" name="q8" value="A"> A) They are too focused on theoretical concepts.</label></li>
+                    <li><label><input type="radio" name="q8" value="B"> B) They lack practical applications.</label></li>
+                    <li><label><input type="radio" name="q8" value="C"> C) They impose specific moral values on students.</label></li>
+                    <li><label><input type="radio" name="q8" value="D"> D) They encourage independent thinking.</label></li>
+                </ul>
+            </div>
+
+            <div class="question">
+                <p>9. Which of the following is an example of a moral virtue?</p>
+                <ul class="options">
+                    <li><label><input type="radio" name="q9" value="A"> A) Greed</label></li>
+                    <li><label><input type="radio" name="q9" value="B"> B) Kindness</label></li>
+                    <li><label><input type="radio" name="q9" value="C"> C) Jealousy</label></li>
+                    <li><label><input type="radio" name="q9" value="D"> D) Dishonesty</label></li>
+                </ul>
+            </div>
+
+            <div class="question">
+                <p>10. How can teachers create a moral learning environment in the classroom?</p>
+                <ul class="options">
+                    <li><label><input type="radio" name="q10" value="A"> A) By enforcing strict rules</label></li>
+                    <li><label><input type="radio" name="q10" value="B"> B) By encouraging open dialogue and respect</label></li>
+                    <li><label><input type="radio" name="q10" value="C"> C) By discouraging personal expression</label></li>
+                    <li><label><input type="radio" name="q10" value="D"> D) By focusing solely on academic content</label></li>
+                </ul>
+            </div>
+
+            <button type="button" class="submit-btn" onclick="calculateScore()">Submit</button>
+            <a href="index.html" class="back-btn">Go Back</a>
+        </form>
+
+        <div id="result">
+            <h2>Your Results</h2>
+            <p id="score"></p>
+            <p id="time"></p>
+        </div>
+    </div>
+
+    <script>
+        let startTime = new Date();
+
+        function formatTime(seconds) {
+            const min = Math.floor(seconds / 60);
+            const sec = seconds % 60;
+            return `${min.toString().padStart(2, '0')}:${sec.toString().padStart(2, '0')}`;
+        }
+
+        function updateTimer() {
+            const now = new Date();
+            const elapsedTime = Math.floor((now - startTime) / 1000);
+            document.getElementById('timer').textContent = 'Time: ' + formatTime(elapsedTime);
+        }
+
+        setInterval(updateTimer, 1000);
+
+        function calculateScore() {
+            const answers = {
+                q1: "B",
+                q2: "B",
+                q3: "B",
+                q4: "C",
+                q5: "B",
+                q6: "B",
+                q7: "C",
+                q8: "C",
+                q9: "B",
+                q10: "B"
+            };
+            let score = 0;
+            const form = document.getElementById('quiz-form');
+            const formData = new FormData(form);
+
+            for (let [question, answer] of Object.entries(answers)) {
+                if (formData.get(question) === answer) {
+                    score++;
+                }
+            }
+
+            const elapsedTime = Math.floor((new Date() - startTime) / 1000);
+            const resultDiv = document.getElementById('result');
+            resultDiv.style.display = 'block';
+            document.getElementById('score').textContent = `You scored ${score} out of 10.`;
+            document.getElementById('time').textContent = `Time taken: ${formatTime(elapsedTime)}.`;
+        }
+    </script>
+</body>
+</html>
