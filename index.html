@@ -141,6 +141,7 @@
             line-height: 1.6;
         }
 
+        /* Translate button styles */
         .translate-container {
             position: fixed;
             top: 70px;
@@ -149,6 +150,40 @@
             background-color: rgba(255, 255, 255, 0.8);
             padding: 5px;
             border-radius: 5px;
+        }
+
+        .goog-te-gadget-simple {
+            background-color: #4CAF50 !important;
+            border: none !important;
+            padding: 10px 15px !important;
+            border-radius: 5px !important;
+            font-family: 'Poppins', sans-serif !important;
+            font-size: 14px !important;
+            color: white !important;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .goog-te-gadget-simple:hover {
+            background-color: #45a049 !important;
+        }
+
+        .goog-te-gadget-simple .goog-te-menu-value {
+            color: white !important;
+            text-decoration: none;
+        }
+
+        .goog-te-gadget-simple .goog-te-menu-value span {
+            color: white !important;
+            border-left: none !important;
+        }
+
+        .goog-te-gadget-simple img {
+            display: none;
+        }
+
+        .goog-te-menu-frame {
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15) !important;
         }
 
         /* Hamburger menu styles */
@@ -233,8 +268,8 @@
                     <li><a href="#home">Home</a></li>
                     <li><a href="#about">About</a></li>
                     <li><a href="#effects">Effects on life</a></li>
-                    <li><a href="quiz.html" class="quiz-button">Start Quiz</a></li>
                     <li><a href="#credits">Credits</a></li>
+                    <li><a href="quiz.html" class="quiz-button">Start Quiz</a></li>
                 </ul>
             </nav>
         </div>
@@ -263,17 +298,24 @@
                         <li>It encourages critical thinking about complex social and ethical issues.</li>
                         <li>It promotes empathy, compassion, and understanding towards others.</li>
                         <li>It prepares students to be responsible citizens and leaders in their communities.</li>
-                        <li>It supports the development of positive relationships and conflict resolution skills.</li>
+                        <li>It contributes to a positive and inclusive school culture.</li>
                     </ul>
+                    <p>Our moral education program includes various activities, discussions, and projects that engage students in thoughtful exploration of moral and ethical topics. We strive to create a supportive environment where students feel comfortable sharing their thoughts and opinions.</p>
                 </div>
             </div>
         </section>
         <section id="effects" class="section">
             <div class="container">
                 <div class="effects-content">
-                    <h2>Effects on Life</h2>
-                    <p>Moral education can have a profound impact on individuals and society as a whole. It helps students develop strong character traits such as honesty, integrity, and respect. These qualities are essential for personal and professional success, as well as for creating a more just and equitable world.</p>
-                    <p>By promoting positive values and ethical decision-making, moral education can help reduce negative behaviors such as bullying, discrimination, and violence. It can also foster a greater sense of empathy and compassion, encouraging students to contribute to their communities and to support those in need.</p>
+                    <h2>Effects of Moral Education on Daily Life</h2>
+                    <p>Moral education has a profound impact on students' lives both inside and outside the classroom. Here are some of the ways in which it influences their daily interactions and personal growth:</p>
+                    <ul>
+                        <li>Improved decision-making: Students learn to make choices based on ethical considerations and long-term consequences.</li>
+                        <li>Positive relationships: Moral education fosters respect, empathy, and communication skills, which contribute to healthier relationships.</li>
+                        <li>Conflict resolution: Students develop the ability to resolve conflicts peacefully and constructively.</li>
+                        <li>Self-awareness: Understanding their own values and beliefs helps students become more self-aware and authentic.</li>
+                        <li>Community involvement: A sense of social responsibility motivates students to actively participate in community service and civic engagement.</li>
+                    </ul>
                 </div>
             </div>
         </section>
@@ -293,23 +335,21 @@
     <div class="translate-container">
         <div id="google_translate_element"></div>
     </div>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        $(document).ready(function () {
-            $('.hamburger').click(function () {
-                $('nav ul').toggleClass('show');
-            });
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({ pageLanguage: 'en' }, 'google_translate_element');
+        }
+    </script>
+    <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <script>
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('nav ul');
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('show');
         });
 
-        function googleTranslateElementInit() {
-            new google.translate.TranslateElement({
-                pageLanguage: 'en',
-                layout: google.translate.TranslateElement.InlineLayout.SIMPLE
-            }, 'google_translate_element');
-        }
-
-        // Particles.js configuration
-        particlesJS('particles-js', {
+        particlesJS("particles-js", {
             "particles": {
                 "number": {
                     "value": 80,
@@ -415,7 +455,5 @@
             "retina_detect": true
         });
     </script>
-    <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
-
 </html>
