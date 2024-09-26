@@ -1,11 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SDHAA Moral Education</title>
-    <link rel="icon" href="logo.jpg" type="image/jpeg">
+    <title>Moral Education Quiz</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
 
@@ -14,446 +12,287 @@
             padding: 0;
             font-family: 'Poppins', sans-serif;
             background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
-            overflow-x: hidden;
-            scroll-behavior: smooth;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            position: relative;
-            z-index: 10;
-        }
-
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 0;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background-color: rgba(255, 255, 255, 0.9);
-            z-index: 100;
-        }
-
-        .logo-container {
-            display: flex;
-            align-items: center;
-        }
-
-        .logo-image {
-            width: 60px;
-            height: 60px;
-            margin-right: 15px;
-        }
-
-        .logo-text {
-            font-size: 24px;
-            font-weight: 700;
             color: #333;
-        }
-
-        nav ul {
-            display: flex;
-            list-style-type: none;
-        }
-
-        nav ul li {
-            margin-left: 20px;
-        }
-
-        nav ul li a {
-            text-decoration: none;
-            color: #333;
-            cursor: pointer;
-        }
-
-        .section {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 80px 0;
-        }
-
-        .hero {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-        }
-
-        .hero-content {
-            flex: 1;
-            min-width: 300px;
-        }
-
-        .hero-content h1 {
-            font-size: 48px;
-            margin-bottom: 20px;
-        }
-
-        .hero-content p {
-            font-size: 18px;
-            margin-bottom: 30px;
-        }
-
-        .video-container {
-            position: relative;
-            width: 100%;
-            padding-bottom: 56.25%; /* 16:9 aspect ratio */
-        }
-
-        .video-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border-radius: 10px;
-        }
-
-        #particles-js {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-        }
-
-        .about-content, .effects-content, .credits-content {
-            background-color: rgba(255, 255, 255, 0.9);
-            padding: 40px;
-            border-radius: 10px;
-            max-width: 800px;
-            margin-bottom: 40px;
-        }
-
-        .about-content h2, .effects-content h2, .credits-content h2 {
-            color: #333;
-            margin-bottom: 20px;
-        }
-
-        .about-content p, .effects-content p, .credits-content p {
-            color: #666;
             line-height: 1.6;
         }
 
-        /* Translate button styles */
-        .translate-container {
-            position: fixed;
-            top: 70px;
-            right: 20px;
-            z-index: 200;
-            background-color: rgba(255, 255, 255, 0.8);
-            padding: 5px;
-            border-radius: 5px;
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
         }
 
-        .goog-te-gadget-simple {
-            background-color: #4CAF50 !important;
-            border: none !important;
-            padding: 10px 15px !important;
-            border-radius: 5px !important;
-            font-family: 'Poppins', sans-serif !important;
-            font-size: 14px !important;
-            color: white !important;
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+
+        .question {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .options {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .options li {
+            margin-bottom: 10px;
+        }
+
+        .options label {
+            display: block;
+            padding: 10px;
+            background-color: rgba(224, 224, 224, 0.7);
+            border-radius: 4px;
             cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .goog-te-gadget-simple:hover {
-            background-color: #45a049 !important;
-        }
-
-        .goog-te-gadget-simple .goog-te-menu-value {
-            color: white !important;
-            text-decoration: none;
-        }
-
-        .goog-te-gadget-simple .goog-te-menu-value span {
-            color: white !important;
-            border-left: none !important;
-        }
-
-        .goog-te-gadget-simple img {
-            display: none;
-        }
-
-        .goog-te-menu-frame {
-            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15) !important;
-        }
-
-        /* Hamburger menu styles */
-        .hamburger {
-            display: none;
-            cursor: pointer;
-        }
-
-        .hamburger div {
-            width: 25px;
-            height: 3px;
-            background-color: #333;
-            margin: 5px 0;
-            transition: all 0.3s ease;
-        }
-
-        @media screen and (max-width: 768px) {
-            .hamburger {
-                display: block;
-            }
-
-            nav ul {
-                display: none;
-                flex-direction: column;
-                position: absolute;
-                top: 70px;
-                left: 0;
-                width: 100%;
-                background-color: rgba(255, 255, 255, 0.9);
-                padding: 20px 0;
-            }
-
-            nav ul.show {
-                display: flex;
-            }
-
-            nav ul li {
-                margin: 10px 0;
-            }
-
-            .section {
-                min-height: auto;
-                padding: 40px 0;
-            }
-
-            #home {
-                padding-top: 100px;
-            }
-        }
-
-        .quiz-button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 20px;
-            text-decoration: none;
-            border-radius: 5px;
             transition: background-color 0.3s;
         }
 
-        .quiz-button:hover {
-            background-color: #45a049;
+        .options label:hover {
+            background-color: rgba(208, 208, 208, 0.9);
+        }
+
+        input[type="radio"] {
+            margin-right: 10px;
+        }
+
+        .submit-btn, .back-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .submit-btn:hover, .back-btn:hover {
+            background-color: #2980b9;
+        }
+
+        .back-btn {
+            background-color: #95a5a6;
+        }
+
+        .back-btn:hover {
+            background-color: #7f8c8d;
+        }
+
+        #timer {
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        #result {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 30px;
+            display: none;
+        }
+
+        .correct {
+            background-color: #27ae60 !important;
+            color: white;
+        }
+
+        .incorrect {
+            background-color: #c0392b !important;
+            color: white;
         }
     </style>
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 </head>
-
 <body>
-    <div id="particles-js"></div>
-    <header>
-        <div class="container">
-            <div class="logo-container">
-                <img src="logo.jpg" alt="Bal Bharati School Logo" class="logo-image">
-                <div class="logo-text">Bal Bharati School, Khargone</div>
-            </div>
-            <nav>
-                <div class="hamburger">
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                </div>
-                <ul>
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#effects">Effects on life</a></li>
-                    <li><a href="#credits">Credits</a></li>
-                    <li><a href="quiz.html" class="quiz-button">Start Quiz</a></li>
+    <div class="container">
+        <h1>Moral Education Quiz</h1>
+        <div id="timer">Time: 00:00</div>
+        <form id="quiz-form">
+            <div class="question">
+                <p>1. What is the primary goal of moral education?</p>
+                <ul class="options">
+                    <li><label><input type="radio" name="q1" value="A"> A) To increase academic performance</label></li>
+                    <li><label><input type="radio" name="q1" value="B"> B) To develop character and ethical reasoning</label></li>
+                    <li><label><input type="radio" name="q1" value="C"> C) To prepare for standardized tests</label></li>
+                    <li><label><input type="radio" name="q1" value="D"> D) To promote physical fitness</label></li>
                 </ul>
-            </nav>
+            </div>
+
+            <div class="question">
+                <p>2. Which of the following is a core value often emphasized in moral education?</p>
+                <ul class="options">
+                    <li><label><input type="radio" name="q2" value="A"> A) Wealth</label></li>
+                    <li><label><input type="radio" name="q2" value="B"> B) Honesty</label></li>
+                    <li><label><input type="radio" name="q2" value="C"> C) Popularity</label></li>
+                    <li><label><input type="radio" name="q2" value="D"> D) Competition</label></li>
+                </ul>
+            </div>
+
+            <div class="question">
+                <p>3. Which approach emphasizes teaching moral principles through real-life scenarios?</p>
+                <ul class="options">
+                    <li><label><input type="radio" name="q3" value="A"> A) Behavioral approach</label></li>
+                    <li><label><input type="radio" name="q3" value="B"> B) Experiential learning</label></li>
+                    <li><label><input type="radio" name="q3" value="C"> C) Rote memorization</label></li>
+                    <li><label><input type="radio" name="q3" value="D"> D) Lecture-based instruction</label></li>
+                </ul>
+            </div>
+
+            <div class="question">
+                <p>4. What role do stories and parables play in moral education?</p>
+                <ul class="options">
+                    <li><label><input type="radio" name="q4" value="A"> A) They entertain students.</label></li>
+                    <li><label><input type="radio" name="q4" value="B"> B) They provide complex narratives.</label></li>
+                    <li><label><input type="radio" name="q4" value="C"> C) They illustrate moral dilemmas and lessons.</label></li>
+                    <li><label><input type="radio" name="q4" value="D"> D) They focus on historical events.</label></li>
+                </ul>
+            </div>
+
+            <div class="question">
+                <p>5. Which of the following methods is effective in promoting moral reasoning among students?</p>
+                <ul class="options">
+                    <li><label><input type="radio" name="q5" value="A"> A) Punishment for wrong actions</label></li>
+                    <li><label><input type="radio" name="q5" value="B"> B) Open discussions about ethical dilemmas</label></li>
+                    <li><label><input type="radio" name="q5" value="C"> C) Strict adherence to rules</label></li>
+                    <li><label><input type="radio" name="q5" value="D"> D) Ignoring moral issues</label></li>
+                </ul>
+            </div>
+
+            <div class="question">
+                <p>6. What is the significance of empathy in moral education?</p>
+                <ul class="options">
+                    <li><label><input type="radio" name="q6" value="A"> A) It helps in winning arguments.</label></li>
+                    <li><label><input type="radio" name="q6" value="B"> B) It fosters understanding and compassion towards others.</label></li>
+                    <li><label><input type="radio" name="q6" value="C"> C) It encourages isolation from differing viewpoints.</label></li>
+                    <li><label><input type="radio" name="q6" value="D"> D) It promotes self-interest.</label></li>
+                </ul>
+            </div>
+
+            <div class="question">
+                <p>7. Which philosopher is known for his work on virtue ethics?</p>
+                <ul class="options">
+                    <li><label><input type="radio" name="q7" value="A"> A) Immanuel Kant</label></li>
+                    <li><label><input type="radio" name="q7" value="B"> B) John Stuart Mill</label></li>
+                    <li><label><input type="radio" name="q7" value="C"> C) Aristotle</label></li>
+                    <li><label><input type="radio" name="q7" value="D"> D) Friedrich Nietzsche</label></li>
+                </ul>
+            </div>
+            <div class="question">
+                <p>8. What is one common criticism of moral education programs?</p>
+                <ul class="options">
+                    <li><label><input type="radio" name="q8" value="A"> A) They are too focused on theoretical concepts.</label></li>
+                    <li><label><input type="radio" name="q8" value="B"> B) They lack practical applications.</label></li>
+                    <li><label><input type="radio" name="q8" value="C"> C) They impose specific moral values on students.</label></li>
+                    <li><label><input type="radio" name="q8" value="D"> D) They encourage independent thinking.</label></li>
+                </ul>
+            </div>
+
+            <div class="question">
+                <p>9. Which of the following is an example of a moral virtue?</p>
+                <ul class="options">
+                    <li><label><input type="radio" name="q9" value="A"> A) Greed</label></li>
+                    <li><label><input type="radio" name="q9" value="B"> B) Kindness</label></li>
+                    <li><label><input type="radio" name="q9" value="C"> C) Jealousy</label></li>
+                    <li><label><input type="radio" name="q9" value="D"> D) Dishonesty</label></li>
+                </ul>
+            </div>
+
+            <div class="question">
+                <p>10. How can teachers create a moral learning environment in the classroom?</p>
+                <ul class="options">
+                    <li><label><input type="radio" name="q10" value="A"> A) By enforcing strict rules</label></li>
+                    <li><label><input type="radio" name="q10" value="B"> B) By encouraging open dialogue and respect</label></li>
+                    <li><label><input type="radio" name="q10" value="C"> C) By discouraging personal expression</label></li>
+                    <li><label><input type="radio" name="q10" value="D"> D) By focusing solely on academic content</label></li>
+                </ul>
+            </div>
+
+            <button type="button" class="submit-btn" onclick="calculateScore()">Submit</button>
+            <a href="index.html" class="back-btn">Go Back</a>
+        </form>
+
+        <div id="result">
+            <h2>Your Results</h2>
+            <p id="score"></p>
+            <p id="time"></p>
         </div>
-    </header>
-    <main>
-        <section id="home" class="section">
-            <div class="container hero">
-                <div class="hero-content">
-                    <h1>A way to learn something new and improve your morals.</h1>
-                    <p>Bal Bharati School Khargone offers a unique learning experience that prepares students for success in the modern world.</p>
-                </div>
-            </div>
-        </section>
-        <section id="about" class="section">
-            <div class="container">
-                <div class="about-content">
-                    <h2>Watch this video to get some basic knowledge about moral education</h2>
-                    <div class="video-container">
-                        <iframe src="https://www.youtube.com/embed/FP0xGevSNzU" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-                    </div>
-                    <h2>About Moral Education</h2>
-                    <p>Moral education is an essential aspect of a well-rounded curriculum that focuses on developing students' ethical awareness, character, and decision-making skills. It goes beyond traditional academic subjects to instill values, principles, and a sense of social responsibility in young minds.</p>
-                    <p>At Bal Bharati School, Khargone, we believe that moral education is crucial for several reasons:</p>
-                    <ul>
-                        <li>It helps students develop a strong moral compass and ethical framework.</li>
-                        <li>It encourages critical thinking about complex social and ethical issues.</li>
-                        <li>It promotes empathy, compassion, and understanding towards others.</li>
-                        <li>It prepares students to be responsible citizens and leaders in their communities.</li>
-                        <li>It contributes to a positive and inclusive school culture.</li>
-                    </ul>
-                    <p>Our moral education program includes various activities, discussions, and projects that engage students in thoughtful exploration of moral and ethical topics. We strive to create a supportive environment where students feel comfortable sharing their thoughts and opinions.</p>
-                </div>
-            </div>
-        </section>
-        <section id="effects" class="section">
-            <div class="container">
-                <div class="effects-content">
-                    <h2>Effects of Moral Education on Daily Life</h2>
-                    <p>Moral education has a profound impact on students' lives both inside and outside the classroom. Here are some of the ways in which it influences their daily interactions and personal growth:</p>
-                    <ul>
-                        <li>Improved decision-making: Students learn to make choices based on ethical considerations and long-term consequences.</li>
-                        <li>Positive relationships: Moral education fosters respect, empathy, and communication skills, which contribute to healthier relationships.</li>
-                        <li>Conflict resolution: Students develop the ability to resolve conflicts peacefully and constructively.</li>
-                        <li>Self-awareness: Understanding their own values and beliefs helps students become more self-aware and authentic.</li>
-                        <li>Community involvement: A sense of social responsibility motivates students to actively participate in community service and civic engagement.</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-        <section id="credits" class="section">
-            <div class="container">
-                <div class="credits-content">
-                    <h2>Credits</h2>
-                    <p><strong>Main Developer and Lead: </strong>Siddhant Jha</p>
-                    <p><strong>UI/UX Design: </strong>Atharva Waghmare</p>
-                    <p><strong>Main Content: </strong>Harsh Mehta</p>
-                    <p><strong>Logo Design: </strong>Diptanshu Meher</p>
-                    <p><strong>Tester: </strong>Aditya Singh Thakur</p>
-                </div>
-            </div>
-        </section>
-    </main>
-    <div class="translate-container">
-        <div id="google_translate_element"></div>
     </div>
+
     <script>
-        function googleTranslateElementInit() {
-            new google.translate.TranslateElement({ pageLanguage: 'en' }, 'google_translate_element');
+        let startTime = new Date();
+
+        function formatTime(seconds) {
+            const min = Math.floor(seconds / 60);
+            const sec = seconds % 60;
+            return `${min.toString().padStart(2, '0')}:${sec.toString().padStart(2, '0')}`;
         }
-    </script>
-    <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-    <script>
-        const hamburger = document.querySelector('.hamburger');
-        const navLinks = document.querySelector('nav ul');
 
-        hamburger.addEventListener('click', () => {
-            navLinks.classList.toggle('show');
-        });
+        function updateTimer() {
+            const now = new Date();
+            const elapsedTime = Math.floor((now - startTime) / 1000);
+            document.getElementById('timer').textContent = 'Time: ' + formatTime(elapsedTime);
+        }
 
-        particlesJS("particles-js", {
-            "particles": {
-                "number": {
-                    "value": 80,
-                    "density": {
-                        "enable": true,
-                        "value_area": 800
+        setInterval(updateTimer, 1000);
+
+        function calculateScore() {
+            const answers = {
+                q1: "B",
+                q2: "B",
+                q3: "B",
+                q4: "C",
+                q5: "B",
+                q6: "B",
+                q7: "C",
+                q8: "C",
+                q9: "B",
+                q10: "B"
+            };
+            let score = 0;
+            const form = document.getElementById('quiz-form');
+            const formData = new FormData(form);
+
+            for (let [question, answer] of Object.entries(answers)) {
+                const selectedAnswer = formData.get(question);
+                const questionInputs = form.querySelectorAll(`input[name="${question}"]`);
+
+                questionInputs.forEach(input => {
+                    const label = input.parentElement;
+                    if (input.value === answer) {
+                        label.classList.add('correct');
+                    } else if (input.value === selectedAnswer) {
+                        label.classList.add('incorrect');
                     }
-                },
-                "color": {
-                    "value": "#ffffff"
-                },
-                "shape": {
-                    "type": "circle",
-                    "stroke": {
-                        "width": 0,
-                        "color": "#000000"
-                    },
-                    "polygon": {
-                        "nb_sides": 5
-                    }
-                },
-                "opacity": {
-                    "value": 0.5,
-                    "random": false,
-                    "anim": {
-                        "enable": false,
-                        "speed": 1,
-                        "opacity_min": 0.1,
-                        "sync": false
-                    }
-                },
-                "size": {
-                    "value": 3,
-                    "random": true,
-                    "anim": {
-                        "enable": false,
-                        "speed": 40,
-                        "size_min": 0.1,
-                        "sync": false
-                    }
-                },
-                "line_linked": {
-                    "enable": true,
-                    "distance": 150,
-                    "color": "#ffffff",
-                    "opacity": 0.4,
-                    "width": 1
-                },
-                "move": {
-                    "enable": true,
-                    "speed": 6,
-                    "direction": "none",
-                    "random": false,
-                    "straight": false,
-                    "out_mode": "out",
-                    "bounce": false,
-                    "attract": {
-                        "enable": false,
-                        "rotateX": 600,
-                        "rotateY": 1200
-                    }
+                });
+
+                if (selectedAnswer === answer) {
+                    score++;
                 }
-            },
-            "interactivity": {
-                "detect_on": "canvas",
-                "events": {
-                    "onhover": {
-                        "enable": true,
-                        "mode": "repulse"
-                    },
-                    "onclick": {
-                        "enable": true,
-                        "mode": "push"
-                    },
-                    "resize": true
-                },
-                "modes": {
-                    "grab": {
-                        "distance": 400,
-                        "line_linked": {
-                            "opacity": 1
-                        }
-                    },
-                    "bubble": {
-                        "distance": 400,
-                        "size": 40,
-                        "duration": 2,
-                        "opacity": 8,
-                        "speed": 3
-                    },
-                    "repulse": {
-                        "distance": 200,
-                        "duration": 0.4
-                    },
-                    "push": {
-                        "particles_nb": 4
-                    },
-                    "remove": {
-                        "particles_nb": 2
-                    }
-                }
-            },
-            "retina_detect": true
-        });
+            }
+
+            const elapsedTime = Math.floor((new Date() - startTime) / 1000);
+            const resultDiv = document.getElementById('result');
+            resultDiv.style.display = 'block';
+            document.getElementById('score').textContent = `You scored ${score} out of 10.`;
+            document.getElementById('time').textContent = `Time taken: ${formatTime(elapsedTime)}.`;
+
+            // Disable all inputs after submission
+            form.querySelectorAll('input[type="radio"]').forEach(input => {
+                input.disabled = true;
+            });
+
+            // Disable the submit button
+            document.querySelector('.submit-btn').disabled = true;
+        }
     </script>
 </body>
 </html>
