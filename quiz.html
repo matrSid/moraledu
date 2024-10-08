@@ -445,14 +445,15 @@
             const achievementPopup = document.getElementById('achievement-popup');
             const achievementText = document.getElementById('achievement-text');
 
-            if (score <= 4) {
+
+            if (score === 0){
+                achievementText.textContent = "Better Luck Next Time!"
+            } else if (score <= 4) {
                 achievementText.textContent = "Good Try! You're on the right path.";
             } else if (score <= 8) {
-                achievementText.textContent = "Excellent! You have a strong grasp of moral concepts.";
+                achievementText.textContent = "Near perfect. You have gained a lot of intelligence about moral education.";
             } else if (score === 10) {
-                achievementText.textContent = "Master! Your understanding of moral education is exemplary.";
-            } else {
-                achievementText.textContent = "Keep Learning! You're making progress in moral education.";
+                achievementText.textContent = "Bullseye! Your understanding of moral education is exemplary.";
             }
 
             achievementPopup.style.display = 'block';
@@ -461,7 +462,6 @@
             form.querySelectorAll('input[type="radio"]').forEach(input => {
                 input.disabled = true;
             });
-
             // Disable the submit button
             document.querySelector('.submit-btn').disabled = true;
         }

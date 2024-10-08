@@ -1,27 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SDHAA Moral Education</title>
     <link rel="icon" href="logo.jpg" type="image/jpeg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+
+        :root {
+            --primary: #4A90E2;
+            --secondary: #2C3E50;
+            --accent: #E74C3C;
+            --background: #F5F6FA;
+            --text: #2C3E50;
+        }
 
         body, html {
             margin: 0;
             padding: 0;
-            font-family: 'Poppins', sans-serif;
-            background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
+            font-family: 'Space Grotesk', sans-serif;
+            background: var(--background);
             overflow-x: hidden;
             scroll-behavior: smooth;
         }
 
+        #particles-js {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #f3f4f6;
+            z-index: 0;
+        }
+
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 40px;
             position: relative;
             z-index: 10;
         }
@@ -35,40 +54,59 @@
             top: 0;
             left: 0;
             right: 0;
-            background-color: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
             z-index: 100;
+            transition: all 0.3s ease;
         }
 
         .logo-container {
             display: flex;
             align-items: center;
+            gap: 15px;
         }
 
         .logo-image {
-            width: 60px;
-            height: 60px;
-            margin-right: 15px;
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
         }
 
         .logo-text {
-            font-size: 24px;
+            font-size: 1.5rem;
             font-weight: 700;
-            color: #333;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         nav ul {
             display: flex;
-            list-style-type: none;
-        }
-
-        nav ul li {
-            margin-left: 20px;
+            gap: 2rem;
+            list-style: none;
+            margin: 0;
+            padding: 0;
         }
 
         nav ul li a {
             text-decoration: none;
-            color: #333;
-            cursor: pointer;
+            color: var(--text);
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        nav ul li a:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(74, 144, 226, 0.3);
         }
 
         .section {
@@ -76,383 +114,387 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 80px 0;
-        }
-
-        .hero {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-        }
-
-        .hero-content {
-            flex: 1;
-            min-width: 300px;
-        }
-
-        .hero-content h1 {
-            font-size: 48px;
-            margin-bottom: 20px;
-        }
-
-        .hero-content p {
-            font-size: 18px;
-            margin-bottom: 30px;
-        }
-
-        .video-container {
+            padding: 100px 0;
             position: relative;
-            width: 100%;
-            padding-bottom: 56.25%; /* 16:9 aspect ratio */
-        }
-
-        .video-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border-radius: 10px;
-        }
-
-        #particles-js {
-            position: fixed;
-            width: 100%;
-            height: 100%;
             z-index: 1;
         }
 
-        .about-content, .effects-content, .credits-content {
-            background-color: rgba(255, 255, 255, 0.9);
-            padding: 40px;
-            border-radius: 10px;
-            max-width: 800px;
-            margin-bottom: 40px;
-        }
-
-        .about-content h2, .effects-content h2, .credits-content h2 {
-            color: #333;
-            margin-bottom: 20px;
-        }
-
-        .about-content p, .effects-content p, .credits-content p {
-            color: #666;
-            line-height: 1.6;
-        }
-
-        /* Translate button styles */
-        .translate-container {
-            position: fixed;
-            top: 70px;
-            right: 20px;
-            z-index: 200;
-            background-color: rgba(255, 255, 255, 0.8);
-            padding: 5px;
-            border-radius: 5px;
-        }
-
-        .goog-te-gadget-simple {
-            background-color: #4CAF50 !important;
-            border: none !important;
-            padding: 10px 15px !important;
-            border-radius: 5px !important;
-            font-family: 'Poppins', sans-serif !important;
-            font-size: 14px !important;
-            color: white !important;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .goog-te-gadget-simple:hover {
-            background-color: #45a049 !important;
-        }
-
-        .goog-te-gadget-simple .goog-te-menu-value {
-            color: white !important;
-            text-decoration: none;
-        }
-
-        .goog-te-gadget-simple .goog-te-menu-value span {
-            color: white !important;
-            border-left: none !important;
-        }
-
-        .goog-te-gadget-simple img {
-            display: none;
-        }
-
-        .goog-te-menu-frame {
-            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15) !important;
-        }
-
-        /* Hamburger menu styles */
-        .hamburger {
-            display: none;
-            cursor: pointer;
-        }
-
-        .hamburger div {
-            width: 25px;
-            height: 3px;
-            background-color: #333;
-            margin: 5px 0;
+        .quiz-button {
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
             transition: all 0.3s ease;
         }
 
-        @media screen and (max-width: 768px) {
-            .hamburger {
-                display: block;
+        .content-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            margin-bottom: 2rem;
+            width: 100%;
+        }
+
+        .hero-content {
+            max-width: 1000px;
+            text-align: center;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .hero-content h1 {
+            font-size: 4rem;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradient 8s ease infinite;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .video-container {
+            width: 100%;
+            max-width: 800px;
+            margin: 2rem auto;
+        }
+
+        .video-container iframe {
+            width: 100%;
+            height: 450px;
+            border-radius: 15px;
+        }
+
+        /* New Additional Content Styles */
+        .quote-card {
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .quote-card p {
+            font-size: 1.5rem;
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .quiz-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(231, 76, 60, 0.4);
+        }
+
+        .logo-container:hover .logo-image {
+            transform: rotate(5deg) scale(1.1);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .stat-card h3 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        #ai-widget {
+            position: fixed;
+            bottom: 20px; 
+            right: 20px; 
+            width: 400px; 
+            height: 590px; 
+            border-radius: 10px; 
+            z-index: 1000; 
+            overflow: auto; /* Allow scrolling if needed */
+        }
+
+        .hero-content {
+            max-width: 1000px;
+            text-align: center;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .hero-content h1 {
+            font-size: 4rem;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradient 8s ease infinite;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 20px;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .content-grid {
+                grid-template-columns: 1fr;
             }
 
             nav ul {
                 display: none;
-                flex-direction: column;
-                position: absolute;
-                top: 70px;
-                left: 0;
-                width: 100%;
-                background-color: rgba(255, 255, 255, 0.9);
-                padding: 20px 0;
             }
-
-            nav ul.show {
-                display: flex;
-            }
-
-            nav ul li {
-                margin: 10px 0;
-            }
-
-            .section {
-                min-height: auto;
-                padding: 40px 0;
-            }
-
-            #home {
-                padding-top: 100px;
-            }
-        }
-
-        .quiz-button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 20px;
-            text-decoration: none;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-        }
-
-        .quiz-button:hover {
-            background-color: #45a049;
         }
     </style>
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 </head>
-
 <body>
+    <iframe src="ai.html" id="ai-widget" frameborder="0"></iframe>
     <div id="particles-js"></div>
     <header>
         <div class="container">
             <div class="logo-container">
-                <img src="logo.jpg" alt="Bal Bharati School Logo" class="logo-image">
-                <div class="logo-text">Bal Bharati School, Khargone</div>
+                <img src="logo.jpg" alt="School Logo" class="logo-image">
+                <div class="logo-text">Bal Bharati Public School</div>
             </div>
             <nav>
-                <div class="hamburger">
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                </div>
                 <ul>
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#effects">Effects on life</a></li>
-                    <li><a href="#credits">Credits</a></li>
-                    <li><a href="quiz.html" class="quiz-button">Start Quiz</a></li>
+                    <li><a href="#home"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="#about"><i class="fas fa-info-circle"></i> About</a></li>
+                    <li><a href="#effects"><i class="fas fa-chart-line"></i> Effects</a></li>
+                    <li><a href="#credits"><i class="fas fa-users"></i> Credits</a></li>
+                    <li><a href="quiz.html" class="quiz-button"><i class="fas fa-question-circle"></i> Start Quiz</a></li>
                 </ul>
             </nav>
         </div>
     </header>
+
     <main>
         <section id="home" class="section">
-            <div class="container hero">
-                <div class="hero-content">
+            <div class="container">
+                <div class="hero-content" data-aos="fade-up">
                     <h1>A way to learn something new and improve your morals.</h1>
                     <p>Bal Bharati School Khargone offers a unique learning experience that prepares students for success in the modern world.</p>
                 </div>
             </div>
         </section>
+
         <section id="about" class="section">
             <div class="container">
-                <div class="about-content">
-                    <h2>Watch this video to get some basic knowledge about moral education</h2>
-                    <div class="video-container">
-                        <iframe src="https://www.youtube.com/embed/FP0xGevSNzU" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-                    </div>
+                <div class="content-card" data-aos="fade-up">
                     <h2>About Moral Education</h2>
-                    <p>Moral education is an essential aspect of a well-rounded curriculum that focuses on developing students' ethical awareness, character, and decision-making skills. It goes beyond traditional academic subjects to instill values, principles, and a sense of social responsibility in young minds.</p>
-                    <p>At Bal Bharati School, Khargone, we believe that moral education is crucial for several reasons:</p>
-                    <ul>
-                        <li>It helps students develop a strong moral compass and ethical framework.</li>
-                        <li>It encourages critical thinking about complex social and ethical issues.</li>
-                        <li>It promotes empathy, compassion, and understanding towards others.</li>
-                        <li>It prepares students to be responsible citizens and leaders in their communities.</li>
-                        <li>It contributes to a positive and inclusive school culture.</li>
-                    </ul>
-                    <p>Our moral education program includes various activities, discussions, and projects that engage students in thoughtful exploration of moral and ethical topics. We strive to create a supportive environment where students feel comfortable sharing their thoughts and opinions.</p>
+                    <div class="video-container" data-aos="zoom-in">
+                        <iframe src="https://www.youtube.com/embed/FP0xGevSNzU" allowfullscreen></iframe>
+                    </div>
+                    <div class="quote-card">
+                        <p>"Moral education is the foundation of a strong character and a prosperous society."</p>
+                        - Educational Philosophy
+                    </div>
+                    <div class="content-grid">
+                        <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+                            <h3>Core Values</h3>
+                            <ul>
+                                <li>Honesty and Integrity</li>
+                                <li>Compassion and Empathy</li>
+                                <li>Responsibility and Discipline</li>
+                                <li>Respect for Others</li>
+                                <li>Cultural Awareness</li>
+                                <li>Environmental Stewardship</li>
+                            </ul>
+                        </div>
+                        <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
+                            <h3>Key Benefits</h3>
+                            <ul>
+                                <li>Better Decision Making</li>
+                                <li>Strong Character Development</li>
+                                <li>Enhanced Social Skills</li>
+                                <li>Positive Attitude</li>
+                                <li>Leadership Development</li>
+                                <li>Global Citizenship</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
-        <section id="effects" class="section">
+
+                <section id="effects" class="section">
             <div class="container">
-                <div class="effects-content">
-                    <h2>Effects of Moral Education on Daily Life</h2>
-                    <p>Moral education has a profound impact on students' lives both inside and outside the classroom. Here are some of the ways in which it influences their daily interactions and personal growth:</p>
-                    <ul>
-                        <li>Improved decision-making: Students learn to make choices based on ethical considerations and long-term consequences.</li>
-                        <li>Positive relationships: Moral education fosters respect, empathy, and communication skills, which contribute to healthier relationships.</li>
-                        <li>Conflict resolution: Students develop the ability to resolve conflicts peacefully and constructively.</li>
-                        <li>Self-awareness: Understanding their own values and beliefs helps students become more self-aware and authentic.</li>
-                        <li>Community involvement: A sense of social responsibility motivates students to actively participate in community service and civic engagement.</li>
-                    </ul>
+                <div class="content-card" data-aos="fade-up">
+                    <h2>Effects on Daily Life</h2>
+                    <div class="quote-card">
+                        <p>"The true test of moral education is its impact on our daily choices and actions."</p>
+                        - Modern Philosophy
+                    </div>
+                    <div class="content-grid">
+                        <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+                            <h3>Personal Growth</h3>
+                            <ul>
+                                <li>Enhanced Self-awareness</li>
+                                <li>Better Emotional Control</li>
+                                <li>Improved Decision Making</li>
+                                <li>Stronger Personal Values</li>
+                                <li>Greater Self-discipline</li>
+                                <li>Ethical Leadership Skills</li>
+                            </ul>
+                        </div>
+                        <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
+                            <h3>Social Impact</h3>
+                            <ul>
+                                <li>Stronger Relationships</li>
+                                <li>Better Communication</li>
+                                <li>Community Engagement</li>
+                                <li>Positive Influence on Others</li>
+                                <li>Cultural Understanding</li>
+                                <li>Conflict Resolution Skills</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
+
+
         <section id="credits" class="section">
             <div class="container">
-                <div class="credits-content">
+                <div class="content-card" data-aos="fade-up">
                     <h2>Credits</h2>
-                    <p><strong>Main Developer and Lead: </strong>Siddhant Jha</p>
-                    <p><strong>UI/UX Design: </strong>Atharva Waghmare</p>
-                    <p><strong>Main Content: </strong>Harsh Mehta</p>
-                    <p><strong>Logo Design: </strong>Diptanshu Meher</p>
-                    <p><strong>Tester: </strong>Aditya Singh Thakur</p>
+                    <div class="content-grid">
+                        <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+                            <h3>The Team</h3>
+                            <ul>
+                                <li><strong>Main Developer and Lead:</strong> Siddhant Jha</li>
+                                <li><strong>UI/UX Design:</strong> Atharva Waghmare</li>
+                                <li><strong>Main Content:</strong> Harsh Mehta</li>
+                                <li><strong>Design:</strong> Diptanshu Meher</li>
+                                <li><strong>Tester:</strong> Aditya Singh Thakur</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
     </main>
-    <div class="translate-container">
-        <div id="google_translate_element"></div>
-    </div>
-    <script>
-        function googleTranslateElementInit() {
-            new google.translate.TranslateElement({ pageLanguage: 'en' }, 'google_translate_element');
-        }
-    </script>
-    <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-    <script>
-        const hamburger = document.querySelector('.hamburger');
-        const navLinks = document.querySelector('nav ul');
 
-        hamburger.addEventListener('click', () => {
-            navLinks.classList.toggle('show');
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 100
         });
 
-        particlesJS("particles-js", {
-            "particles": {
-                "number": {
-                    "value": 80,
-                    "density": {
-                        "enable": true,
-                        "value_area": 800
+        // Initialize Particles.js with updated configuration
+        particlesJS('particles-js', {
+            particles: {
+                number: {
+                    value: 100,
+                    density: {
+                        enable: true,
+                        value_area: 1000
                     }
                 },
-                "color": {
-                    "value": "#ffffff"
+                color: {
+                    value: '#4A90E2'
                 },
-                "shape": {
-                    "type": "circle",
-                    "stroke": {
-                        "width": 0,
-                        "color": "#000000"
-                    },
-                    "polygon": {
-                        "nb_sides": 5
+                shape: {
+                    type: 'circle'
+                },
+                opacity: {
+                    value: 0.3,
+                    random: true,
+                    anim: {
+                        enable: true,
+                        speed: 1,
+                        opacity_min: 0.1,
+                        sync: false
                     }
                 },
-                "opacity": {
-                    "value": 0.5,
-                    "random": false,
-                    "anim": {
-                        "enable": false,
-                        "speed": 1,
-                        "opacity_min": 0.1,
-                        "sync": false
-                    }
+                size: {
+                    value: 3,
+                    random: true
                 },
-                "size": {
-                    "value": 3,
-                    "random": true,
-                    "anim": {
-                        "enable": false,
-                        "speed": 40,
-                        "size_min": 0.1,
-                        "sync": false
-                    }
+                line_linked: {
+                    enable: true,
+                    distance: 150,
+                    color: '#4A90E2',
+                    opacity: 0.2,
+                    width: 1
                 },
-                "line_linked": {
-                    "enable": true,
-                    "distance": 150,
-                    "color": "#ffffff",
-                    "opacity": 0.4,
-                    "width": 1
-                },
-                "move": {
-                    "enable": true,
-                    "speed": 6,
-                    "direction": "none",
-                    "random": false,
-                    "straight": false,
-                    "out_mode": "out",
-                    "bounce": false,
-                    "attract": {
-                        "enable": false,
-                        "rotateX": 600,
-                        "rotateY": 1200
-                    }
+                move: {
+                    enable: true,
+                    speed: 2,
+                    direction: 'none',
+                    random: true,
+                    straight: false,
+                    out_mode: 'out',
+                    bounce: false
                 }
             },
-            "interactivity": {
-                "detect_on": "canvas",
-                "events": {
-                    "onhover": {
-                        "enable": true,
-                        "mode": "repulse"
+            interactivity: {
+                detect_on: 'canvas',
+                events: {
+                    onhover: {
+                        enable: true,
+                        mode: 'grab'
                     },
-                    "onclick": {
-                        "enable": true,
-                        "mode": "push"
+                    onclick: {
+                        enable: true,
+                        mode: 'push'
                     },
-                    "resize": true
+                    resize: true
                 },
-                "modes": {
-                    "grab": {
-                        "distance": 400,
-                        "line_linked": {
-                            "opacity": 1
+                modes: {
+                    grab: {
+                        distance: 140,
+                        line_linked: {
+                            opacity: 1
                         }
                     },
-                    "bubble": {
-                        "distance": 400,
-                        "size": 40,
-                        "duration": 2,
-                        "opacity": 8,
-                        "speed": 3
-                    },
-                    "repulse": {
-                        "distance": 200,
-                        "duration": 0.4
-                    },
-                    "push": {
-                        "particles_nb": 4
-                    },
-                    "remove": {
-                        "particles_nb": 2
+                    push: {
+                        particles_nb: 4
                     }
                 }
             },
-            "retina_detect": true
+            retina_detect: true
         });
     </script>
 </body>
