@@ -50,10 +50,17 @@
             cursor: pointer;
             transition: all 0.3s ease;
             z-index: 1000;
+            border: none;
+            outline: none;
+            -webkit-tap-highlight-color: transparent;
         }
 
         #dark-mode-toggle:hover {
             transform: scale(1.1);
+        }
+
+        #dark-mode-toggle i {
+            font-size: 20px; /* Increased from default size */
         }
 
         /* Dark mode styles */
@@ -106,14 +113,12 @@
             color: var(--text);
         }
 
-    /* New styles for full-width card dark mode fix */
         body.dark-mode .full-width-card {
             background-color: var(--secondary);
-            color: var(--text);
         }
 
         body.dark-mode .full-width-card h3 {
-            color: var(--primary);
+            color: var(--text); /* Changed from var(--primary) to var(--text) */
         }
 
         body.dark-mode .full-width-card p {
@@ -121,7 +126,7 @@
         }
 
         .full-width-card {
-            grid-column: 1 / -1; /* Spans full width of grid */
+            grid-column: 1 / -1;
             background: white;
             padding: 2rem;
             border-radius: 15px;
@@ -136,14 +141,14 @@
         }
 
         .full-width-card h3 {
-            color: var(--primary);
+            color: var(--text); /* Changed from var(--primary) to var(--text) */
             margin-bottom: 1rem;
             font-size: 1.5rem;
         }
 
         .full-width-card p {
             line-height: 1.6;
-            color: var(--text);
+            color: black;
             text-align: justify;
             margin-bottom: 1rem;
         }
@@ -719,6 +724,19 @@
                 right: auto;
                 bottom: auto;
                 left: auto;
+            }
+
+            #dark-mode-toggle {
+                bottom: 70px; /* Moved up slightly to avoid potential overlaps */
+                left: 10px;
+                padding: 20px; /* Increase touch area without changing visible size */
+                touch-action: manipulation; /* Disable double-tap to zoom */
+                height: 10px;
+                width: 10px;
+            }
+
+            #dark-mode-toggle i {
+                font-size: 24px; /* Larger icon on mobile */
             }
         }
     </style>
