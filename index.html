@@ -35,6 +35,90 @@
             overflow-x: hidden;
             scroll-behavior: smooth;
         }
+        #dark-mode-toggle {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        #dark-mode-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        /* Dark mode styles */
+        body.dark-mode {
+            --primary: #61dafb;
+            --secondary: #282c34;
+            --accent: #ff6b6b;
+            --background: #1a1a1a;
+            --text: #f0f0f0;
+        }
+
+        body.dark-mode header,
+        body.dark-mode .content-card,
+        body.dark-mode .feature-card,
+        body.dark-mode .mobile-menu {
+            background-color: #282c34;
+            color: var(--text);
+        }
+
+        body.dark-mode .logo-text,
+        body.dark-mode h1,
+        body.dark-mode h2,
+        body.dark-mode h3 {
+            color: var(--primary);
+        }
+
+        body.dark-mode nav ul li a {
+            color: var(--text);
+        }
+
+        body.dark-mode nav ul li a:hover {
+            background: var(--primary);
+            color: var(--secondary);
+        }
+
+        body.dark-mode #particles-js {
+            background-color: #1a1a1a;
+        }
+
+        body.dark-mode .quote-card {
+            background: linear-gradient(45deg, var(--secondary), var(--accent));
+        }
+
+        body.dark-mode #dark-mode-toggle {
+            background-color: var(--text);
+            color: var(--secondary);
+        }
+
+        body.dark-mode .hero-content p {
+            color: var(--text);
+        }
+
+    /* New styles for full-width card dark mode fix */
+        body.dark-mode .full-width-card {
+            background-color: var(--secondary);
+            color: var(--text);
+        }
+
+        body.dark-mode .full-width-card h3 {
+            color: var(--primary);
+        }
+
+        body.dark-mode .full-width-card p {
+            color: var(--text);
+        }
 
         .full-width-card {
             grid-column: 1 / -1; /* Spans full width of grid */
@@ -302,10 +386,10 @@
             position: absolute;
             width: 250px;
             height: 250px;
-            
             transition: all 0.3s ease;
             animation: float 6s ease-in-out infinite;
         }
+
 
         .floating-image:first-child {
             top: 0;
@@ -449,6 +533,15 @@
                 box-sizing: border-box;
             }
 
+            .full-width-card {
+                padding: 1rem;
+            }
+
+            .full-width-card p {
+                text-align: left; /* Change from justify to left alignment on mobile */
+                margin-bottom: 0.5rem; /* Reduce space between paragraphs */
+            }
+
             .hero-section {
                 grid-template-columns: 1fr;
                 text-align: center;
@@ -464,11 +557,16 @@
             }
 
             .hero-images {
-                height: 300px;
+                height: auto;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
                 margin-top: 2rem;
             }
 
             .floating-image {
+                position: static;
                 width: 180px;
                 height: 180px;
             }
@@ -609,10 +707,26 @@
                 padding: 10px;
                 margin-bottom: 10px;
             }
-                }
+            #dark-mode-toggle {
+                bottom: 70px; /* Move it up to avoid overlap with other fixed elements */
+                left: 10px;
+                width: 40px;
+                height: 40px;
+            }
+            .floating-image:first-child,
+            .floating-image:last-child {
+                top: auto;
+                right: auto;
+                bottom: auto;
+                left: auto;
+            }
+        }
     </style>
 </head>
 <body>
+    <div id="dark-mode-toggle">
+        <i class="fas fa-moon"></i>
+    </div>
     <div id="google_translate_element"></div>
     <iframe src="ai.html" id="ai-widget" frameborder="0"></iframe>
     <div id="particles-js"></div>
@@ -714,7 +828,7 @@
                             </ul>
                         </div>
                         <div class="full-width-card" data-aos="fade-up" data-aos-delay="300">
-                            <h3>Understanding Moral Education</h3>
+                            <h3>About</h3>
                             <p>
                                 Moral education is the process of teaching individuals, particularly the young, values and principles that guide responsible behavior. It focuses on developing virtues like honesty, kindness, fairness, empathy, and responsibility, helping individuals distinguish right from wrong. This form of education encourages ethical decision-making and fosters positive contributions to society.
                             </p>
@@ -820,14 +934,6 @@
                             <p>
                             10. Assessment and Evaluation
                             Assessing moral education requires thoughtful methods beyond traditional tests. Alternative evaluations, like self-reflections and peer assessments, offer insights into moral development. Evaluating programs ensures impactful ethical instruction aligned with educational goals, fostering responsible, engaged citizens.
-                            </p>
-                            <p>
-                            11. Technology and Moral Education
-                            Technology influences moral views, necessitating discussions on online ethics and digital citizenship. Educators must guide students in responsible technology use, emphasizing empathy and respect in digital interactions while critically examining the ethical implications of technology in daily life.
-                            </p>
-                            <p>
-                            12. Contemporary Issues
-                            Addressing contemporary issues like bullying and discrimination in moral education encourages students to reflect on their values and roles in promoting social justice. Connecting ethics to real-world challenges empowers them to develop a strong ethical framework for navigating society.                            
                             </p>
                         </div>
                     </div>
@@ -982,6 +1088,26 @@
 
         // Handle resize
         window.addEventListener('resize', handleTranslateElement);
+    </script>
+    <script>
+    const darkModeToggle = document.getElementById('dark-mode-toggle');
+    const body = document.body;
+
+    // Check for saved dark mode preference
+    if (localStorage.getItem('darkMode') === 'enabled') {
+        body.classList.add('dark-mode');
+    }
+
+    darkModeToggle.addEventListener('click', () => {
+        body.classList.toggle('dark-mode');
+
+        // Save dark mode preference
+        if (body.classList.contains('dark-mode')) {
+            localStorage.setItem('darkMode', 'enabled');
+        } else {
+            localStorage.setItem('darkMode', null);
+        }
+    });
     </script>
 </body>
 </html>
