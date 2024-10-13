@@ -11,7 +11,7 @@
         function googleTranslateElementInit() {
             new google.translate.TranslateElement({
                 pageLanguage: 'en',
-                layout: google.translate.TranslateElement.InlineLayout
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE
             }, 'google_translate_element');
         }
     </script>
@@ -118,7 +118,7 @@
         }
 
         body.dark-mode .full-width-card h3 {
-            color: var(--text); /* Changed from var(--primary) to var(--text) */
+            color: var(--primary); /* Changed from var(--primary) to var(--text) */
         }
 
         body.dark-mode .full-width-card p {
@@ -243,6 +243,11 @@
         height: 100%;
         }
 
+        .hero-content p {
+            animation: floatText 4s ease-in-out infinite;
+            animation-delay: 0.5s; /* Slight delay for a staggered effect */
+        }
+
         .mobile-menu ul li {
             padding: 15px 30px;
         }
@@ -297,7 +302,7 @@
             font-size: 1.5rem;
             font-weight: 700;
             background: linear-gradient(45deg, var(--primary), var(--accent));
-            -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
@@ -377,7 +382,7 @@
             line-height: 1.2;
             margin-bottom: 1.5rem;
             background: linear-gradient(45deg, var(--primary), var(--accent));
-            -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
             animation: gradient 8s ease infinite;
         }
@@ -426,6 +431,19 @@
                 transform: translateY(0px);
             }
         }
+
+        @keyframes floatText {
+            0% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
 
         .content-grid {
             display: grid;
@@ -515,13 +533,13 @@
         }
 
         .hero-content h1 {
-            font-size: 4rem;
+            font-size: 3.5rem;
             line-height: 1.2;
             margin-bottom: 1.5rem;
             background: linear-gradient(45deg, var(--primary), var(--accent));
-            -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
-            animation: gradient 8s ease infinite;
+            animation: gradient 8s ease infinite, floatText 4s ease-in-out infinite;
         }
 
         #mobile-translate {
@@ -727,16 +745,20 @@
             }
 
             #dark-mode-toggle {
-                bottom: 70px; /* Moved up slightly to avoid potential overlaps */
-                left: 10px;
-                padding: 20px; /* Increase touch area without changing visible size */
-                touch-action: manipulation; /* Disable double-tap to zoom */
-                height: 10px;
-                width: 10px;
+                display: none; /* Hide the floating dark mode toggle on mobile */
             }
 
-            #dark-mode-toggle i {
-                font-size: 24px; /* Larger icon on mobile */
+            #mobile-dark-mode-toggle {
+                display: flex;
+                align-items: center;
+                padding: 10px;
+                color: var(--text);
+                text-decoration: none;
+                font-size: 1.1rem;
+            }
+
+            #mobile-dark-mode-toggle i {
+                margin-right: 10px;
             }
         }
     </style>
@@ -761,6 +783,7 @@
             <li><a href="#effects"><i class="fas fa-chart-line"></i> Effects</a></li>
             <li><a href="#subtopics"><i class="fas fa-book"></i> Subtopics</a></li>
             <li><a href="#credits"><i class="fas fa-users"></i> Credits</a></li>
+            <li><a href="#" id="mobile-dark-mode-toggle"><i class="fas fa-moon"></i> Enable Dark Mode</a></li>
             <li><a href="quiz.html" class="quiz-button"><i class="fas fa-question-circle"></i> Start Quiz</a></li>
             <li id="mobile-translate"></li>
         </ul>
@@ -1108,24 +1131,48 @@
         window.addEventListener('resize', handleTranslateElement);
     </script>
     <script>
-    const darkModeToggle = document.getElementById('dark-mode-toggle');
-    const body = document.body;
+        const darkModeToggle = document.getElementById('dark-mode-toggle');
+        const mobileDarkModeToggle = document.getElementById('mobile-dark-mode-toggle');
+        const body = document.body;
 
-    // Check for saved dark mode preference
-    if (localStorage.getItem('darkMode') === 'enabled') {
-        body.classList.add('dark-mode');
-    }
+        // Function to toggle dark mode
+        function toggleDarkMode() {
+            body.classList.toggle('dark-mode');
 
-    darkModeToggle.addEventListener('click', () => {
-        body.classList.toggle('dark-mode');
+            // Update button text for mobile
+            if (mobileDarkModeToggle) {
+                mobileDarkModeToggle.innerHTML = body.classList.contains('dark-mode')
+                    ? '<i class="fas fa-sun"></i> Disable Dark Mode'
+                    : '<i class="fas fa-moon"></i> Enable Dark Mode';
+            }
 
-        // Save dark mode preference
-        if (body.classList.contains('dark-mode')) {
-            localStorage.setItem('darkMode', 'enabled');
-        } else {
-            localStorage.setItem('darkMode', null);
+            // Save dark mode preference
+            if (body.classList.contains('dark-mode')) {
+                localStorage.setItem('darkMode', 'enabled');
+            } else {
+                localStorage.setItem('darkMode', null);
+            }
         }
-    });
+
+        // Check for saved dark mode preference
+        if (localStorage.getItem('darkMode') === 'enabled') {
+            body.classList.add('dark-mode');
+            if (mobileDarkModeToggle) {
+                mobileDarkModeToggle.innerHTML = '<i class="fas fa-sun"></i> Disable Dark Mode';
+            }
+        }
+
+        // Event listeners for both toggles
+        if (darkModeToggle) {
+            darkModeToggle.addEventListener('click', toggleDarkMode);
+        }
+
+        if (mobileDarkModeToggle) {
+            mobileDarkModeToggle.addEventListener('click', (e) => {
+                e.preventDefault();
+                toggleDarkMode();
+            });
+        }
     </script>
 </body>
 </html>

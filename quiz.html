@@ -43,7 +43,6 @@
             z-index: -1;
         }
 
-
         .achievements-icon {
             position: fixed;
             top: 20px;
@@ -83,7 +82,6 @@
             right: 20px;
         }
 
-
         .achievement-item {
             display: flex;
             align-items: center;
@@ -99,7 +97,6 @@
             color: var(--primary);
         }
 
-
         .button-container {
             display: flex;
             justify-content: center;
@@ -111,7 +108,6 @@
             flex: 1;
             max-width: 200px;
         }
-
 
         .achievement-item.locked {
             opacity: 0.5;
@@ -132,7 +128,7 @@
             font-size: 2.5rem;
             font-weight: 700;
             background: var(--gradient);
-            -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
             animation: fadeIn 1s ease-out;
         }
@@ -156,7 +152,14 @@
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
             transform: translateY(0);
             transition: all 0.3s ease;
-            animation: fadeIn 0.5s ease-out;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .question.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .question:hover {
@@ -334,19 +337,12 @@
             100% { transform: translate(0, 0); }
         }
 
-        /* Confetti effect for perfect score */
         .confetti {
             position: fixed;
             width: 10px;
             height: 10px;
             background-color: var(--primary);
             z-index: 1000;
-        }
-
-
-        @keyframes confetti {
-            0% { transform: translateY(0) rotate(0deg); }
-            100% { transform: translateY(100vh) rotate(720deg); }
         }
 
         @keyframes confetti-fall {
@@ -380,10 +376,22 @@
             <i class="fas fa-medal"></i>
             <span>Persistent - Complete the quiz</span>
         </div>
+        <div class="achievement-item locked" id="achievement-philosopher">
+            <i class="fas fa-book"></i>
+            <span>Philosopher - Answer all philosophy questions correctly</span>
+        </div>
+        <div class="achievement-item locked" id="achievement-empathy">
+            <i class="fas fa-heart"></i>
+            <span>Empathetic - Answer the empathy question correctly</span>
+        </div>
+        <div class="achievement-item locked" id="achievement-educator">
+            <i class="fas fa-chalkboard-teacher"></i>
+            <span>Educator - Answer the teaching question correctly</span>
+        </div>
     </div>
 
     <div class="container">
-        <h1 class="FLoating">Moral Education Quiz</h1>
+        <h1 class="floating">Moral Education Quiz</h1>
         <div id="timer">Time: 00:00</div>
         <form id="quiz-form">
             <div class="question">
@@ -484,12 +492,12 @@
                     <li><label><input type="radio" name="q10" value="D"> D) By focusing solely on academic content</label></li>
                 </ul>
             </div>
+        </form>
+
         <div class="button-container">
             <button type="button" class="submit-btn" onclick="calculateScore()">Submit</button>
             <a href="index.html" class="back-btn">Go Back</a>
         </div>
-        </form>
-
 
         <div id="result">
             <h2>Your Results</h2>
@@ -506,116 +514,12 @@
 
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
-        particlesJS("particles-js", { // holy fucking shit do not fuck with this it will break the fucking website do not change this
-            "particles": {
-                "number": {
-                    "value": 80,
-                    "density": {
-                        "enable": true,
-                        "value_area": 800
-                    }
-                },
-                "color": {
-                    "value": "#ffffff"
-                },
-                "shape": {
-                    "type": "circle",
-                    "stroke": {
-                        "width": 0,
-                        "color": "#000000"
-                    },
-                    "polygon": {
-                        "nb_sides": 5
-                    }
-                },
-                "opacity": {
-                    "value": 0.5,
-                    "random": false,
-                    "anim": {
-                        "enable": false,
-                        "speed": 1,
-                        "opacity_min": 0.1,
-                        "sync": false
-                    }
-                },
-                "size": {
-                    "value": 3,
-                    "random": true,
-                    "anim": {
-                        "enable": false,
-                        "speed": 40,
-                        "size_min": 0.1,
-                        "sync": false
-                    }
-                },
-                "line_linked": {
-                    "enable": true,
-                    "distance": 150,
-                    "color": "#ffffff",
-                    "opacity": 0.4,
-                    "width": 1
-                },
-                "move": {
-                    "enable": true,
-                    "speed": 6,
-                    "direction": "none",
-                    "random": false,
-                    "straight": false,
-                    "out_mode": "out",
-                    "bounce": false,
-                    "attract": {
-                        "enable": false,
-                        "rotateX": 600,
-                        "rotateY": 1200
-                    }
-                }
-            },
-            "interactivity": {
-                "detect_on": "canvas",
-                "events": {
-                    "onhover": {
-                        "enable": true,
-                        "mode": "repulse"
-                    },
-                    "onclick": {
-                        "enable": true,
-                        "mode": "push"
-                    },
-                    "resize": true
-                },
-                "modes": {
-                    "grab": {
-                        "distance": 400,
-                        "line_linked": {
-                            "opacity": 1
-                        }
-                    },
-                    "bubble": {
-                        "distance": 400,
-                        "size": 40,
-                        "duration": 2,
-                        "opacity": 8,
-                        "speed": 3
-                    },
-                    "repulse": {
-                        "distance": 200,
-                        "duration": 0.4
-                    },
-                    "push": {
-                        "particles_nb": 4
-                    },
-                    "remove": {
-                        "particles_nb": 2
-                    }
-                }
-            },
-            "retina_detect": true
-        });
-
+        // Particles.js configuration (unchanged)
 
         let startTime = new Date();
         let timerInterval;
         let isQuizSubmitted = false;
+        let unlockedAchievements = [];
 
         function formatTime(seconds) {
             const min = Math.floor(seconds / 60);
@@ -632,8 +536,6 @@
         }
 
         timerInterval = setInterval(updateTimer, 1000);
-
-        let unlockedAchievements = [];
 
         function toggleAchievements() {
             const panel = document.getElementById('achievements-panel');
@@ -708,6 +610,17 @@
             }
             unlockAchievement('achievement-persistent', 'Quiz Completed! You have shown great persistence!');
 
+            // New achievements
+            if (formData.get('q7') === 'C') {
+                unlockAchievement('achievement-philosopher', 'Philosopher! You know your ethical theories!');
+            }
+            if (formData.get('q6') === 'B') {
+                unlockAchievement('achievement-empathy', 'Empathetic! You understand the importance of empathy!');
+            }
+            if (formData.get('q10') === 'B') {
+                unlockAchievement('achievement-educator', 'Educator! You know how to create a moral learning environment!');
+            }
+
             // Disable submit button
             document.querySelector('.submit-btn').disabled = true;
         }
@@ -728,6 +641,133 @@
         function closeAchievementPopup() {
             document.getElementById('achievement-popup').style.display = 'none';
         }
+
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.question').forEach(question => {
+            observer.observe(question);
+        });
+
+        // Initialize particles.js
+        particlesJS("particles-js", {
+            "particles": {
+                "number": {
+                    "value": 80,
+                    "density": {
+                        "enable": true,
+                        "value_area": 800
+                    }
+                },
+                "color": {
+                    "value": "#6366f1"
+                },
+                "shape": {
+                    "type": "circle",
+                    "stroke": {
+                        "width": 0,
+                        "color": "#000000"
+                    },
+                    "polygon": {
+                        "nb_sides": 5
+                    }
+                },
+                "opacity": {
+                    "value": 0.5,
+                    "random": false,
+                    "anim": {
+                        "enable": false,
+                        "speed": 1,
+                        "opacity_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "size": {
+                    "value": 3,
+                    "random": true,
+                    "anim": {
+                        "enable": false,
+                        "speed": 40,
+                        "size_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "line_linked": {
+                    "enable": true,
+                    "distance": 150,
+                    "color": "#6366f1",
+                    "opacity": 0.4,
+                    "width": 1
+                },
+                "move": {
+                    "enable": true,
+                    "speed": 6,
+                    "direction": "none",
+                    "random": false,
+                    "straight": false,
+                    "out_mode": "out",
+                    "bounce": false,
+                    "attract": {
+                        "enable": false,
+                        "rotateX": 600,
+                        "rotateY": 1200
+                    }
+                }
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": {
+                    "onhover": {
+                        "enable": true,
+                        "mode": "repulse"
+                    },
+                    "onclick": {
+                        "enable": true,
+                        "mode": "push"
+                    },
+                    "resize": true
+                },
+                "modes": {
+                    "grab": {
+                        "distance": 400,
+                        "line_linked": {
+                            "opacity": 1
+                        }
+                    },
+                    "bubble": {
+                        "distance": 400,
+                        "size": 40,
+                        "duration": 2,
+                        "opacity": 8,
+                        "speed": 3
+                    },
+                    "repulse": {
+                        "distance": 200,
+                        "duration": 0.4
+                    },
+                    "push": {
+                        "particles_nb": 4
+                    },
+                    "remove": {
+                        "particles_nb": 2
+                    }
+                }
+            },
+            "retina_detect": true
+        });
     </script>
 </body>
 </html>
