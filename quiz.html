@@ -14,6 +14,20 @@
             --success: #22c55e;
             --error: #ef4444;
             --gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            --background: #f3f4f6;
+            --text: #1f2937;
+            --card-bg: rgba(255, 255, 255, 0.95);
+        }
+
+        .dark-mode {
+            --primary: #8b5cf6;
+            --primary-dark: #7c3aed;
+            --success: #10b981;
+            --error: #ef4444;
+            --gradient: linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%);
+            --background: #1f2937;
+            --text: #f3f4f6;
+            --card-bg: rgba(31, 41, 55, 0.95);
         }
 
         * {
@@ -26,11 +40,45 @@
             margin: 0;
             padding: 0;
             font-family: 'Outfit', sans-serif;
-            color: #1f2937;
+            color: var(--text);
             line-height: 1.6;
             min-height: 100vh;
-            background-color: #f3f4f6;
+            background-color: var(--background);
             overflow-x: hidden;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        #achievement-popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.9);
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            text-align: center;
+            z-index: 1000;
+            max-width: 90%;
+            width: 400px;
+            animation: scaleIn 0.5s ease-out forwards;
+        }
+
+        #achievement-popup.show {
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        #achievement-popup h2 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+
+        #achievement-popup p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            color: #4b5563;
         }
 
         #particles-js {
@@ -41,6 +89,11 @@
             height: 100vh;
             background: linear-gradient(135deg, #e0e7ff 0%, #ede9fe 100%);
             z-index: -1;
+            transition: background 0.3s ease;
+        }
+
+        .dark-mode #particles-js {
+            background: linear-gradient(135deg, #1e1b4b 0%, #2e1065 100%);
         }
 
         .achievements-icon {
@@ -70,11 +123,11 @@
             top: 80px;
             right: -300px;
             width: 280px;
-            background: white;
+            background: var(--card-bg);
             border-radius: 16px;
             padding: 20px;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            transition: right 0.3s ease;
+            transition: right 0.3s ease, background-color 0.3s ease;
             z-index: 1000;
         }
 
@@ -123,7 +176,7 @@
 
         h1 {
             text-align: center;
-            color: #1f2937;
+            color: var(--text);
             margin-bottom: 2rem;
             font-size: 2.5rem;
             font-weight: 700;
@@ -138,23 +191,23 @@
             font-size: 1.5rem;
             margin-bottom: 2rem;
             padding: 1rem;
-            background: rgba(255, 255, 255, 0.9);
+            background: var(--card-bg);
             border-radius: 12px;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
             animation: slideDown 0.5s ease-out;
+            transition: background-color 0.3s ease;
         }
 
         .question {
-            background-color: rgba(255, 255, 255, 0.95);
+            background-color: var(--card-bg);
             border-radius: 16px;
             padding: 2rem;
             margin-bottom: 1.5rem;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
             transform: translateY(0);
-            transition: all 0.3s ease;
+            transition: all 0.3s ease, background-color 0.3s ease;
             opacity: 0;
             transform: translateY(20px);
-            transition: opacity 0.5s ease, transform 0.5s ease;
         }
 
         .question.visible {
@@ -179,18 +232,19 @@
         .options label {
             display: block;
             padding: 1rem 1.5rem;
-            background-color: rgba(255, 255, 255, 0.8);
+            background-color: var(--card-bg);
             border: 2px solid #e5e7eb;
             border-radius: 12px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
             position: relative;
             overflow: hidden;
         }
 
         .options label:hover {
-            background-color: #f3f4f6;
+            background-color: var(--primary);
             border-color: var(--primary);
+            color: white;
             transform: translateX(5px);
         }
 
@@ -236,75 +290,54 @@
         .correct {
             background-color: rgba(34, 197, 94, 0.1) !important;
             border-color: var(--success) !important;
-            color: #166534 !important;
+            color: var(--success) !important;
         }
 
         .incorrect {
             background-color: rgba(239, 68, 68, 0.1) !important;
             border-color: var(--error) !important;
-            color: #991b1b !important;
-        }
-
-        #achievement-popup {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) scale(0.9);
-            background: rgba(255, 255, 255, 0.98);
-            border-radius: 20px;
-            padding: 2.5rem;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-            text-align: center;
-            z-index: 1000;
-            max-width: 90%;
-            width: 400px;
-            animation: scaleIn 0.5s ease-out forwards;
-        }
-
-        #achievement-popup.show {
-            transform: translate(-50%, -50%) scale(1);
-        }
-
-        #achievement-popup h2 {
-            color: var(--primary);
-            margin-bottom: 1rem;
-            font-size: 1.8rem;
-        }
-
-        #achievement-popup p {
-            font-size: 1.1rem;
-            margin-bottom: 1.5rem;
-            color: #4b5563;
-        }
-
-        .claim-btn {
-            background: var(--gradient);
-            color: white;
-            font-weight: 600;
-            padding: 1rem 2rem;
-            border-radius: 12px;
-            transition: all 0.3s ease;
-        }
-
-        .claim-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 12px -2px rgba(99, 102, 241, 0.5);
+            color: var(--error) !important;
         }
 
         #result {
-            background: white;
+            background: var(--card-bg);
             border-radius: 16px;
             padding: 2rem;
             margin-top: 2rem;
             text-align: center;
             display: none;
             animation: slideUp 0.5s ease-out;
+            transition: background-color 0.3s ease;
         }
 
         #result h2 {
             color: var(--primary);
             margin-bottom: 1rem;
+        }
+
+        #dark-mode-toggle {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #3b82f6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        #dark-mode-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        #dark-mode-toggle i {
+            color: white;
+            font-size: 24px;
         }
 
         @keyframes fadeIn {
@@ -394,7 +427,7 @@
         <h1 class="floating">Moral Education Quiz</h1>
         <div id="timer">Time: 00:00</div>
         <form id="quiz-form">
-            <div class="question">
+                        <div class="question">
                 <p>1. What is the primary goal of moral education?</p>
                 <ul class="options">
                     <li><label><input type="radio" name="q1" value="A"> A) To increase academic performance</label></li>
@@ -512,14 +545,17 @@
         <button class="claim-btn" onclick="closeAchievementPopup()">Claim Achievement</button>
     </div>
 
+    <div id="dark-mode-toggle" onclick="toggleDarkMode()">
+        <i class="fas fa-moon"></i>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
-        // Particles.js configuration (unchanged)
-
         let startTime = new Date();
         let timerInterval;
         let isQuizSubmitted = false;
         let unlockedAchievements = [];
+        let isDarkMode = false;
 
         function formatTime(seconds) {
             const min = Math.floor(seconds / 60);
@@ -661,6 +697,23 @@
         document.querySelectorAll('.question').forEach(question => {
             observer.observe(question);
         });
+
+        // Dark mode toggle function
+        function toggleDarkMode() {
+            isDarkMode = !isDarkMode;
+            document.body.classList.toggle('dark-mode', isDarkMode);
+            const icon = document.querySelector('#dark-mode-toggle i');
+            icon.className = isDarkMode ? 'fas fa-sun' : 'fas fa-moon';
+            updateParticlesColor();
+        }
+
+        // Update particles color based on dark mode
+        function updateParticlesColor() {
+            const color = isDarkMode ? '#8b5cf6' : '#6366f1';
+            pJSDom[0].pJS.particles.color.value = color;
+            pJSDom[0].pJS.particles.line_linked.color = color;
+            pJSDom[0].pJS.fn.particlesRefresh();
+        }
 
         // Initialize particles.js
         particlesJS("particles-js", {

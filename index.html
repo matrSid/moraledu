@@ -125,6 +125,7 @@
             color: var(--text);
         }
 
+
         .full-width-card {
             grid-column: 1 / -1;
             background: white;
@@ -136,14 +137,37 @@
         }
 
         .full-width-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .full-width-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(74, 144, 226, 0.05), rgba(231, 76, 60, 0.05));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .full-width-card:hover::before {
+            opacity: 1;
         }
 
         .full-width-card h3 {
             color: var(--text); /* Changed from var(--primary) to var(--text) */
             margin-bottom: 1rem;
             font-size: 1.5rem;
+            position: relative;
+            z-index: 1;
+            transition: transform 0.3s ease;
+        }
+
+        .full-width-card:hover h3 {
+            transform: scale(1.03);
         }
 
         .full-width-card p {
@@ -151,6 +175,13 @@
             color: black;
             text-align: justify;
             margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+            transition: transform 0.3s ease;
+        }
+
+        .full-width-card:hover p {
+            transform: translateY(2px);
         }
 
         .full-width-card p:last-child {
@@ -302,7 +333,7 @@
             width: 65px;
             height: 65px;
             border-radius: 10px;
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease !important;
         }
 
         .logo-text {
@@ -466,11 +497,101 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
             cursor: pointer;
+            overflow: hidden;
         }
 
+        .feature-card, .full-width-card {
+            background: white;
+            padding: 2rem!important;
+            border-radius: 15px!important;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1)!important;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1)!important;
+            cursor: pointer!important;
+            position: relative!important;
+            z-index: 1!important;
+        }
+
+        .feature-card:hover, .full-width-card:hover {
+            transform: translateY(-20px) scale(1.05);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.2);
+            z-index: 2;
+        }
+
+        .feature-card::after, .full-width-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+            border-radius: 15px;
+        }
+
+        .feature-card:hover::after, .full-width-card:hover::after {
+            opacity: 1;
+        }
+
+        /* Additional styles for content animation */
+        .feature-card h3, .full-width-card h3,
+        .feature-card ul, .full-width-card p {
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover h3, .full-width-card:hover h3 {
+            transform: translateY(-5px);
+        }
+
+        .feature-card:hover ul, .full-width-card:hover p {
+            transform: translateY(5px);
+        }
+
+        /* Perspective effect for parent container */
+        .content-grid {
+            perspective: 1000px;
+        }
+
+        .feature-card:hover h3 {
+            transform: scale(1.05);
+        }
+
+        .feature-card:hover h3 {
+            transform: scale(1.05);
+        }
+
+        .feature-card ul {
+            position: relative;
+            z-index: 1;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover ul {
+            transform: translateY(5px);
+        }
+
+
         .feature-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(74, 144, 226, 0.1), rgba(231, 76, 60, 0.1));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
         }
 
         .video-container {
@@ -513,7 +634,11 @@
         }
 
         .logo-container:hover .logo-image {
-            transform: rotate(5deg) scale(1.1);
+            transform: rotate(5deg) scale(1.1)!important;
+        }
+
+        .logo-container:hover .logo-image1 {
+            transform: rotate(5deg) scale(1.1)!important;
         }
 
         .stat-card h3 {
