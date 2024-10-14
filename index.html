@@ -80,6 +80,17 @@
             color: var(--text);
         }
 
+        body.dark-mode .content-card,
+        body.dark-mode .feature-card,
+        body.dark-mode .full-width-card {
+            background-color: #282c34;
+            color: var(--text)!important;
+        }
+
+        body.dark-mode .quote-card {
+            background: linear-gradient(45deg, var(--primary), var(--accent))!important;
+        }
+
         body.dark-mode .logo-text,
         body.dark-mode h1,
         body.dark-mode h2,
@@ -376,7 +387,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 100px 0;
+            padding: 80px 0;
             position: relative;
             z-index: 1;
         }
@@ -408,6 +419,27 @@
             transition: all 0.3s ease;
             margin-bottom: 2rem;
             width: 100%;
+        }
+
+        .content-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .feature-card, .full-width-card {
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+        }
+
+        .feature-card:hover, .full-width-card:hover {
+            transform: translateY(-10px)!important;
+        }
+
+        #dark-mode-toggle, #mobile-dark-mode-toggle {
+            transition: all 0.3s ease!important;
+        }
+
+        #dark-mode-toggle:hover, #mobile-dark-mode-toggle:hover {
+            transform: scale(1.1)!important;
         }
 
         .hero-content {
@@ -1271,28 +1303,28 @@
         // Function to toggle dark mode
         function toggleDarkMode() {
             body.classList.toggle('dark-mode');
+            updateDarkModeIcons();
+            saveDarkModePreference();
+        }
 
-            // Update button text for mobile
+        function updateDarkModeIcons() {
+            const isDarkMode = body.classList.contains('dark-mode');
+            darkModeToggle.innerHTML = isDarkMode ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
             if (mobileDarkModeToggle) {
-                mobileDarkModeToggle.innerHTML = body.classList.contains('dark-mode')
+                mobileDarkModeToggle.innerHTML = isDarkMode
                     ? '<i class="fas fa-sun"></i> Disable Dark Mode'
                     : '<i class="fas fa-moon"></i> Enable Dark Mode';
             }
+        }
 
-            // Save dark mode preference
-            if (body.classList.contains('dark-mode')) {
-                localStorage.setItem('darkMode', 'enabled');
-            } else {
-                localStorage.setItem('darkMode', null);
-            }
+        function saveDarkModePreference() {
+            localStorage.setItem('darkMode', body.classList.contains('dark-mode') ? 'enabled' : null);
         }
 
         // Check for saved dark mode preference
         if (localStorage.getItem('darkMode') === 'enabled') {
             body.classList.add('dark-mode');
-            if (mobileDarkModeToggle) {
-                mobileDarkModeToggle.innerHTML = '<i class="fas fa-sun"></i> Disable Dark Mode';
-            }
+            updateDarkModeIcons();
         }
 
         // Event listeners for both toggles
@@ -1306,6 +1338,16 @@
                 toggleDarkMode();
             });
         }
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
     </script>
 </body>
 </html>

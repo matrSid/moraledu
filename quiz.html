@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Moral Education Quiz</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" href="logo.jpg" type="image/jpeg">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
 
@@ -17,6 +18,8 @@
             --background: #f3f4f6;
             --text: #1f2937;
             --card-bg: rgba(255, 255, 255, 0.95);
+            --popup-bg: rgba(255, 255, 255, 0.98);
+            --popup-text: #1f2937;
         }
 
         .dark-mode {
@@ -28,6 +31,8 @@
             --background: #1f2937;
             --text: #f3f4f6;
             --card-bg: rgba(31, 41, 55, 0.95);
+            --popup-bg: rgba(31, 41, 55, 0.98);
+            --popup-text: #f3f4f6;
         }
 
         * {
@@ -54,7 +59,8 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%) scale(0.9);
-            background: rgba(255, 255, 255, 0.98);
+            background: var(--popup-bg);
+            color: var(--popup-text);
             border-radius: 20px;
             padding: 2.5rem;
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
@@ -63,10 +69,22 @@
             max-width: 90%;
             width: 400px;
             animation: scaleIn 0.5s ease-out forwards;
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+        }
+
+        #achievement-popup.fade-out {
+            opacity: 0;
+            transform: translate(-50%, -50%) scale(0.9);
         }
 
         #achievement-popup.show {
             transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+        }
+
+        #achievement-popup.hide {
+            opacity: 0;
+            pointer-events: none;
         }
 
         #achievement-popup h2 {
@@ -78,7 +96,7 @@
         #achievement-popup p {
             font-size: 1.1rem;
             margin-bottom: 1.5rem;
-            color: #4b5563;
+            color: var(--popup-text);
         }
 
         #particles-js {
@@ -168,10 +186,14 @@
 
         .container {
             max-width: 800px;
-            margin: 2rem auto;
-            padding: 20px;
+            width: 90%;
             position: relative;
             z-index: 1;
+            background-color: var(--card-bg);
+            border-radius: 20px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            margin: 2rem auto;
         }
 
         h1 {
@@ -196,6 +218,17 @@
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
             animation: slideDown 0.5s ease-out;
             transition: background-color 0.3s ease;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .submit-btn, .back-btn, .claim-btn {
+            font-size: 1rem !important;
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed!important;
         }
 
         .question {
@@ -427,7 +460,7 @@
         <h1 class="floating">Moral Education Quiz</h1>
         <div id="timer">Time: 00:00</div>
         <form id="quiz-form">
-                        <div class="question">
+                                    <div class="question">
                 <p>1. What is the primary goal of moral education?</p>
                 <ul class="options">
                     <li><label><input type="radio" name="q1" value="A"> A) To increase academic performance</label></li>
@@ -591,7 +624,17 @@
                 const achievementText = document.getElementById('achievement-text');
                 achievementText.textContent = message;
                 achievementPopup.style.display = 'block';
+                achievementPopup.classList.add('show');
             }
+        }
+
+        function closeAchievementPopup() {
+            const achievementPopup = document.getElementById('achievement-popup');
+            achievementPopup.classList.add('fade-out');
+            setTimeout(() => {
+                achievementPopup.style.display = 'none';
+                achievementPopup.classList.remove('show', 'fade-out');
+            }, 500);
         }
 
         function calculateScore() {
@@ -636,6 +679,9 @@
             document.getElementById('score').textContent = `You scored ${score} out of 10.`;
             document.getElementById('time').textContent = `Time taken: ${formatTime(elapsedTime)}`;
 
+            // Scroll to the result div
+            resultDiv.scrollIntoView({ behavior: 'smooth' });
+
             // Unlock achievements based on performance
             if (score === 10) {
                 unlockAchievement('achievement-bullseye', 'Perfect Score! You have mastered moral education!');
@@ -674,10 +720,6 @@
             }
         }
 
-        function closeAchievementPopup() {
-            document.getElementById('achievement-popup').style.display = 'none';
-        }
-
         // Intersection Observer for scroll animations
         const observerOptions = {
             root: null,
@@ -705,6 +747,18 @@
             const icon = document.querySelector('#dark-mode-toggle i');
             icon.className = isDarkMode ? 'fas fa-sun' : 'fas fa-moon';
             updateParticlesColor();
+            localStorage.setItem('darkMode', isDarkMode);
+        }
+
+        function loadDarkModePreference() {
+            const savedDarkMode = localStorage.getItem('darkMode');
+            if (savedDarkMode !== null) {
+                isDarkMode = JSON.parse(savedDarkMode);
+                document.body.classList.toggle('dark-mode', isDarkMode);
+                const icon = document.querySelector('#dark-mode-toggle i');
+                icon.className = isDarkMode ? 'fas fa-sun' : 'fas fa-moon';
+                updateParticlesColor();
+            }
         }
 
         // Update particles color based on dark mode
@@ -714,7 +768,7 @@
             pJSDom[0].pJS.particles.line_linked.color = color;
             pJSDom[0].pJS.fn.particlesRefresh();
         }
-
+        document.addEventListener('DOMContentLoaded', loadDarkModePreference);
         // Initialize particles.js
         particlesJS("particles-js", {
             "particles": {
