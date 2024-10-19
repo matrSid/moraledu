@@ -44,7 +44,6 @@
             transform: scale(1.1);
             background: #1976D2;
         }
-
         #chat-icon i {
             color: white;
             font-size: 24px;
@@ -56,6 +55,7 @@
             right: 20px;
             width: 350px;
             height: 500px;
+            max-height: calc(100vh - 110px);
             background: white;
             border-radius: 12px;
             box-shadow: 0 5px 25px rgba(0,0,0,0.2);
@@ -122,11 +122,12 @@
             border-top: 1px solid #eee;
             border-radius: 0 0 12px 12px;
             display: flex;
-            gap: 10px;
+            align-items: center; /* Align the input and button side by side */
+            gap: 10px; /* Add some spacing between the input and the button */
         }
 
         #user-input {
-            flex: 1;
+            flex: 1; /* Makes the input take the remaining space */
             padding: 12px;
             border: 1px solid #ddd;
             border-radius: 25px;
@@ -137,6 +138,12 @@
 
         #user-input:focus {
             border-color: #2196F3;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         #send-button {
@@ -157,6 +164,24 @@
             background: #1976D2;
         }
 
+        .formatting-buttons {
+            display: flex;
+            gap: 5px;
+        }
+
+        .formatting-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            color: #555;
+            transition: color 0.3s ease;
+        }
+
+        .formatting-button:hover {
+            color: #2196F3;
+        }
+
         /* Custom scrollbar */
         #messages::-webkit-scrollbar {
             width: 6px;
@@ -174,6 +199,35 @@
         #messages::-webkit-scrollbar-thumb:hover {
             background: #555;
         }
+
+        @media (max-width: 768px) {
+            #chat-container {
+                width: 90%;
+                height: 80%;
+                max-height: none;
+                bottom: 80px;
+                right: 5%;
+                left: 5%;
+                border-radius: 12px;
+            }
+
+            .chat-header {
+                border-radius: 12px 12px 0 0;
+            }
+
+            #chat-icon {
+                bottom: 10px;
+                right: 10px;
+            }
+
+            .input-container {
+                padding: 10px;
+            }
+
+            #user-input {
+                font-size: 16px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -190,9 +244,11 @@
     <div id="messages"></div>
     <div class="input-container">
         <input type="text" id="user-input" placeholder="Type your message..." />
-        <button id="send-button">
-            <i class="fas fa-paper-plane"></i>
-        </button>
+        <div class="button-container">
+            <button id="send-button">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </div>
     </div>
 </div>
 
@@ -208,20 +264,18 @@
     const messages = document.getElementById('messages');
     const userInput = document.getElementById('user-input');
     const sendButton = document.getElementById('send-button');
+    const formattingButtons = document.querySelectorAll('.formatting-button');
 
-    // Toggle chat
     chatIcon.onclick = () => {
         chatContainer.classList.toggle('active');
     };
 
-    // Handle click outside to close
     document.addEventListener('click', (e) => {
         if (!chatContainer.contains(e.target) && !chatIcon.contains(e.target)) {
             chatContainer.classList.remove('active');
         }
     });
 
-    // Handle send message
     const sendMessage = async () => {
         const userMessage = userInput.value.trim();
         if (!userMessage) return;
@@ -239,27 +293,62 @@
 
     sendButton.onclick = sendMessage;
 
-    // Handle enter key
     userInput.addEventListener('keypress', (e) => {
         if (e.key === 'Enter') {
             sendMessage();
         }
     });
 
+    formattingButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const format = button.getAttribute('data-format');
+            applyFormatting(format);
+        });
+    });
+
+    function applyFormatting(format) {
+        const start = userInput.selectionStart;
+        const end = userInput.selectionEnd;
+        const selectedText = userInput.value.substring(start, end);
+        let formattedText = '';
+
+        switch (format) {
+            case 'bold':
+                formattedText = `**${selectedText}**`;
+                break;
+            case 'italic':
+                formattedText = `*${selectedText}*`;
+                break;
+            case 'underline':
+                formattedText = `__${selectedText}__`;
+                break;
+        }
+
+        userInput.value = userInput.value.substring(0, start) + formattedText + userInput.value.substring(end);
+        userInput.focus();
+        userInput.setSelectionRange(start + 2, start + formattedText.length - 2);
+    }
+
     function addMessage(text, sender) {
         const message = document.createElement('div');
         message.className = `message ${sender}-message`;
-        message.textContent = text;
+        message.innerHTML = formatMessage(text);
         messages.appendChild(message);
         messages.scrollTop = messages.scrollHeight;
+    }
+
+    function formatMessage(text) {
+        return text
+            .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+            .replace(/\*(.*?)\*/g, '<em>$1</em>')
+            .replace(/__(.*?)__/g, '<u>$1</u>');
     }
 
     async function fetchBotResponse(message) {
         const result = await model.generateContent(message);
         return result.response.text();
     }
-
-    // Add initial welcome message
+ 
     addMessage("Hello! How can I assist you today?", 'bot');
 </script>
 
