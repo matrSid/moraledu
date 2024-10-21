@@ -53,6 +53,13 @@
             transition: background-color 0.3s ease, color 0.3s ease;
         }
 
+        #google_translate_element {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+        }
+
         #achievement-popup {
             display: none;
             position: fixed;
@@ -424,6 +431,7 @@
     </style>
 </head>
 <body>
+    <div id="google_translate_element"></div>
     <div id="particles-js"></div>
     <div class="achievements-icon" onclick="toggleAchievements()">
         <i class="fas fa-trophy"></i>
@@ -583,6 +591,12 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout}, 'google_translate_element');
+        }
+    </script>
+    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
     <script>
         let startTime = new Date();
         let timerInterval;
