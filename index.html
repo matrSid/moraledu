@@ -514,6 +514,10 @@
         .feature-card:hover, .full-width-card:hover {
             transform: translateY(-10px)!important;
         }
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1)!important;
+        }
 
         #dark-mode-toggle, #mobile-dark-mode-toggle {
             transition: all 0.3s ease!important;
@@ -528,15 +532,6 @@
             padding: 2rem;
         }
 
-        .hero-content h1 {
-            font-size: 3.5rem;
-            line-height: 1.2;
-            margin-bottom: 1.5rem;
-            background: linear-gradient(45deg, var(--primary), var(--accent));
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: gradient 8s ease infinite;
-        }
 
         .hero-images {
             position: relative;
@@ -786,6 +781,7 @@
             -webkit-text-fill-color: transparent;
             animation: gradient 8s ease infinite, floatText 4s ease-in-out infinite;
         }
+
         .message strong {
             font-weight: bold;
         }
@@ -804,6 +800,32 @@
         margin-bottom: 10px; /* Space between translate and menu items */
         text-align: center;
         order: -1;
+        }
+
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+        .loader::after {
+            content: "";
+            width: 50px;
+            height: 50px;
+            border: 10px solid #dddddd;
+            border-top-color: #009688;
+            border-radius: 50%;
+            animation: loading 1s ease infinite;
+        }
+        @keyframes loading {
+            from { transform: rotate(0turn) }
+            to { transform: rotate(1turn) }
         }
 
         .goog-te-banner-frame {
@@ -1033,6 +1055,7 @@
     </style>
 </head>
 <body>
+    <div id="loader" class="loader"></div>
     <div id="dark-mode-toggle">
         <i class="fas fa-moon"></i>
     </div>
@@ -1043,7 +1066,7 @@
         <span></span>
         <span></span>
         <span></span>
-    </button> 
+    </button>
 
     <div class="mobile-menu">
         <ul>
@@ -1206,46 +1229,7 @@
                     <div class="content-grid">
                         <div class="full-width-card" data-aos="fade-up" data-aos-delay="300">
                             <h3>Understanding Moral Education</h3>
-                            <p>
-                            1. Philosophical Foundations
-                            Moral education draws on ethical theories like deontology, utilitarianism, and virtue ethics. Historical perspectives enhance understanding, helping students grasp moral reasoning's evolution and fostering critical ethical principles essential for their development.
-                            </p>
-                            <p>
-                            2. Curriculum Development
-                            Integrating moral education into curricula enriches student learning. By incorporating ethical themes through various subjects and age-appropriate activities, educators cultivate critical moral reasoning and ethical behavior, preparing students to face real-world challenges responsibly.
-                            </p>
-                            <p>
-                            3. Civic Education
-                            Civic education instills responsibility toward society, teaching students about rights, duties, and justice. Engaging discussions and community service promote informed, ethical citizens who actively contribute to their communities, fostering a sense of belonging and accountability.
-                            </p>
-                            <p>
-                            4. Character Education
-                            Character education nurtures traits like integrity, empathy, and respect. Strategies include modeling behaviors, mentorship, and creating supportive environments. By prioritizing character development, schools cultivate compassionate leaders capable of making ethical choices and contributing positively to society.
-                            </p>
-                            <p>
-                            5. Cultural Perspectives
-                            Cultural perspectives highlight diverse values shaping moral understanding. Teaching students about different moral frameworks fosters respect and empathy, promoting critical thinking about one's values. This approach encourages inclusivity and acceptance in an increasingly multicultural world.
-                            </p>
-                            <p>
-                            6. Social and Emotional Learning (SEL)
-                            SEL emphasizes emotional intelligence and interpersonal skills, integral to moral education. By fostering self-awareness and empathy, SEL enhances students' ability to navigate social complexities, creating a caring environment that empowers ethical action and personal growth.
-                            </p>
-                            <p>
-                            7. Moral Dilemmas and Critical Thinking
-                            Engaging students in moral dilemmas enhances critical thinking. Discussions encourage reflection and analysis, helping them appreciate complexity in ethical challenges. This prepares them for future dilemmas, equipping them to make thoughtful, responsible decisions in diverse situations.
-                            </p>
-                            <p>
-                            8. Role of Educators
-                            Educators serve as role models in moral education, influencing students' development. Teacher training must emphasize ethics integration, while ongoing professional development ensures educators employ best practices, fostering an environment that promotes moral reasoning and ethical understanding.
-                            </p>
-                            <p>
-                            9. Parental and Community Involvement
-                            Parental and community involvement is crucial in moral education. Families instill values, while community organizations provide support. Collaboration enhances ethical teaching, fostering shared understanding and reinforcing the importance of moral behavior in both home and community contexts.
-                            </p>
-                            <p>
-                            10. Assessment and Evaluation
-                            Assessing moral education requires thoughtful methods beyond traditional tests. Alternative evaluations, like self-reflections and peer assessments, offer insights into moral development. Evaluating programs ensures impactful ethical instruction aligned with educational goals, fostering responsible, engaged citizens.
-                            </p>
+                            <p> • Philosophical Foundations: Moral education draws on ethical theories like deontology, utilitarianism, and virtue ethics. Historical perspectives enhance understanding, helping students grasp moral reasoning's evolution and fostering critical ethical principles essential for their development. </p> <p> • Curriculum Development: Integrating moral education into curricula enriches student learning. By incorporating ethical themes through various subjects and age-appropriate activities, educators cultivate critical moral reasoning and ethical behavior, preparing students to face real-world challenges responsibly. </p> <p> • Civic Education: Civic education instills responsibility toward society, teaching students about rights, duties, and justice. Engaging discussions and community service promote informed, ethical citizens who actively contribute to their communities, fostering a sense of belonging and accountability. </p> <p> • Character Education: Character education nurtures traits like integrity, empathy, and respect. Strategies include modeling behaviors, mentorship, and creating supportive environments. By prioritizing character development, schools cultivate compassionate leaders capable of making ethical choices and contributing positively to society. </p> <p> • Cultural Perspectives: Cultural perspectives highlight diverse values shaping moral understanding. Teaching students about different moral frameworks fosters respect and empathy, promoting critical thinking about one's values. This approach encourages inclusivity and acceptance in an increasingly multicultural world. </p> <p> • Social and Emotional Learning (SEL): SEL emphasizes emotional intelligence and interpersonal skills, integral to moral education. By fostering self-awareness and empathy, SEL enhances students' ability to navigate social complexities, creating a caring environment that empowers ethical action and personal growth. </p> <p> • Moral Dilemmas and Critical Thinking: Engaging students in moral dilemmas enhances critical thinking. Discussions encourage reflection and analysis, helping them appreciate complexity in ethical challenges. This prepares them for future dilemmas, equipping them to make thoughtful, responsible decisions in diverse situations. </p> <p> • Role of Educators: Educators serve as role models in moral education, influencing students' development. Teacher training must emphasize ethics integration, while ongoing professional development ensures educators employ best practices, fostering an environment that promotes moral reasoning and ethical understanding. </p> <p> • Parental and Community Involvement: Parental and community involvement is crucial in moral education. Families instill values, while community organizations provide support. Collaboration enhances ethical teaching, fostering shared understanding and reinforcing the importance of moral behavior in both home and community contexts. </p> <p> • Assessment and Evaluation: Assessing moral education requires thoughtful methods beyond traditional tests. Alternative evaluations, like self-reflections and peer assessments, offer insights into moral development. Evaluating programs ensures impactful ethical instruction aligned with educational goals, fostering responsible, engaged citizens. </p>
                         </div>
                     </div>
                 </div>
@@ -1274,7 +1258,7 @@
         </section>
     </main>
 
- <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script>
         // Initialize AOS
@@ -1336,11 +1320,11 @@
                 events: {
                     onhover: {
                         enable: true,
-                        mode: 'grab'
+                        mode: 'connect'  // Change mode to 'connect'
                     },
                     onclick: {
                         enable: true,
-                        mode: 'push'
+                        mode: 'repulse'  // Change mode to 'repulse'
                     },
                     resize: true
                 },
@@ -1350,6 +1334,14 @@
                         line_linked: {
                             opacity: 1
                         }
+                    },
+                    connect: {  // When hovering, particles connect to the cursor
+                        distance: 200,
+                        radius: 200
+                    },
+                    repulse: {  // When clicked, particles will move away
+                        distance: 100,
+                        duration: 0.4
                     },
                     push: {
                         particles_nb: 4
@@ -1479,6 +1471,10 @@
             removeGoogleElements();
             return originalPush.apply(this, arguments);
         };
+
+        window.addEventListener('load', () => {
+            document.getElementById('loader').style.display = 'none';
+        });
     </script>
 </body>
 </html>
