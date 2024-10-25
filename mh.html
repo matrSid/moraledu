@@ -27,6 +27,28 @@
             color: var(--text);
         }
 
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            background: var(--background);
+        }
+
+        .hero-section,
+        .mood-tracker,
+        .cheer-up-section,
+        .image-card,
+        .gratitude-section,
+        .strategy-card,
+        .resources-section,
+        .real-life-examples {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(5px);
+        }
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -122,17 +144,6 @@
             overflow: hidden;
         }
 
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.9);
-            cursor: pointer;
-        }
 
         .modal-content {
             margin: auto;
@@ -447,9 +458,48 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.3);
         }
 
+                #google_translate_element {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: white;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        /* Hide Google Translate attribution */
+        .goog-logo-link {
+            display: none !important;
+        }
+        .goog-te-gadget {
+            color: transparent !important;
+        }
+        .goog-te-gadget .goog-te-combo {
+            color: var(--text);
+            border: 2px solid var(--primary);
+            padding: 5px;
+            border-radius: 5px;
+            font-family: 'Space Grotesk', sans-serif;
+            outline: none;
+        }
+        .goog-te-gadget .goog-te-combo:focus {
+            border-color: var(--gradient-end);
+        }
+
+        /* Fix for Google Translate banner */
+        .skiptranslate iframe {
+            display: none !important;
+        }
+        body {
+            top: 0 !important;
+        }
+
     </style>
 </head>
 <body>
+    <div id="google_translate_element"></div>
     <div class="container">
         <a href="index.html" class="go-back-btn">
             <i class="fas fa-arrow-left"></i> Go Back
@@ -459,12 +509,7 @@
             <p>Your mental health matters. Track your progress, reflect on your feelings, and find strategies to manage stress.</p>
         </section>
 
-        <div id="imageModal" class="modal">
-            <span class="close">&times;</span>
-            <div class="modal-content">
-                <img id="modalImage" src="" alt="Full size image">
-            </div>
-        </div>
+
 
         <div class="mood-tracker">
             <h2><i class="fas fa-heart"></i> Daily Wellness Check</h2>
@@ -778,5 +823,102 @@
             }
         });
     </script>
+        <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en',
+                layout: google.translate.TranslateElement.InlineLayout,
+                autoDisplay: false
+            }, 'google_translate_element');
+        }
+    </script>
+
+    <!-- Add Particles.js Script -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        particlesJS('particles-js', {
+            particles: {
+                number: {
+                    value: 100,
+                    density: {
+                        enable: true,
+                        value_area: 1000
+                    }
+                },
+                color: {
+                    value: '#4A90E2'
+                },
+                shape: {
+                    type: 'circle'
+                },
+                opacity: {
+                    value: 0.3,
+                    random: true,
+                    anim: {
+                        enable: true,
+                        speed: 1,
+                        opacity_min: 0.1,
+                        sync: false
+                    }
+                },
+                size: {
+                    value: 3,
+                    random: true
+                },
+                line_linked: {
+                    enable: true,
+                    distance: 150,
+                    color: '#4A90E2',
+                    opacity: 0.2,
+                    width: 1
+                },
+                move: {
+                    enable: true,
+                    speed: 2,
+                    direction: 'none',
+                    random: true,
+                    straight: false,
+                    out_mode: 'out',
+                    bounce: false
+                }
+            },
+            interactivity: {
+                detect_on: 'canvas',
+                events: {
+                    onhover: {
+                        enable: true,
+                        mode: 'connect'
+                    },
+                    onclick: {
+                        enable: true,
+                        mode: 'repulse'
+                    },
+                    resize: true
+                },
+                modes: {
+                    grab: {
+                        distance: 140,
+                        line_linked: {
+                            opacity: 1
+                        }
+                    },
+                    connect: {
+                        distance: 200,
+                        radius: 200
+                    },
+                    repulse: {
+                        distance: 100,
+                        duration: 0.4
+                    },
+                    push: {
+                        particles_nb: 4
+                    }
+                }
+            },
+            retina_detect: true
+        });
+    </script>
+    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
 </html>
