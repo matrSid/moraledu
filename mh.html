@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mind & Wellness Support</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+
+        :root {
+            --primary: #4A90E2;
+            --secondary: #2C3E50;
+            --accent: #E74C3C;
+            --background: #F5F6FA;
+            --text: #2C3E50;
+            --success: #2ECC71;
+            --gradient-start: #4A90E2;
+            --gradient-end: #357ABD;
+        }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: var(--background);
+            color: var(--text);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            animation: shine 2s infinite;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero-section h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .image-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .image-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+
+        .image-card img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+            max-width: 100%;
+        }
+
+        .image-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .image-card-content {
+            padding: 1.5rem;
+            background: linear-gradient(to bottom, rgba(255,255,255,0.9), white);
+        }
+
+        .cheer-up-section {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .cheer-up-heading {
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            color: white;
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            cursor: pointer;
+        }
+
+        .modal-content {
+            margin: auto;
+            display: block;
+            max-width: 90%;
+            max-height: 90vh;
+            position: relative;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .modal-content img {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+        }
+
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* Style for the new Real Life Examples section */
+        .real-life-examples {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .real-life-examples h2 {
+            color: var(--secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .examples-content {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+        }
+
+        @keyframes shine {
+            0% {
+                transform: translateX(-100%) translateY(-100%) rotate(45deg);
+            }
+            100% {
+                transform: translateX(100%) translateY(100%) rotate(45deg);
+            }
+        }
+
+        .cheer-up-heading::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                transparent 0%,
+                transparent 45%,
+                rgba(255, 255, 255, 0.5) 48%,
+                rgba(255, 255, 255, 0.8) 50%,
+                rgba(255, 255, 255, 0.5) 52%,
+                transparent 55%,
+                transparent 100%
+            );
+            animation: shine 3s infinite;
+        }
+
+        .funny-images-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+            align-items: start; /* Align items to the start of each row */
+        }
+
+        .funny-image-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            cursor: pointer;
+            height: auto; /* Allow height to be determined by content */
+        }
+
+        .funny-image-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .funny-image-card img {
+            width: auto; /* Allow image to maintain aspect ratio */
+            height: auto; /* Allow image to maintain aspect ratio */
+            max-width: 100%; /* Ensure image doesn't overflow container */
+            display: block; /* Remove any extra space below image */
+        }
+
+
+        .gratitude-section {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .gratitude-journal {
+            background: #fff8dc;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .gratitude-input {
+            width: 100%;
+            min-height: 100px;
+            padding: 1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            margin: 1rem 0;
+            font-family: inherit;
+            resize: vertical;
+            transition: border-color 0.3s ease;
+        }
+
+        .gratitude-input:focus {
+            border-color: var(--primary);
+            outline: none;
+        }
+
+        .mood-tracker {
+            background: linear-gradient(135deg, #ffffff, #f6f9fc);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .mood-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .mood-btn {
+            font-size: 2.5rem;
+            background: white;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 1rem;
+            border-radius: 50%;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .mood-btn:hover {
+            transform: scale(1.2) rotate(15deg);
+        }
+
+        .mood-btn.selected {
+            border-color: var(--primary);
+            box-shadow: 0 0 15px rgba(74,144,226,0.3);
+        }
+
+        .mood-feedback {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+            background-color: #f8f9fa;
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .wellness-tip {
+            background: #e3f2fd;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .wellness-tip i {
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+
+        .coping-strategies {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .strategy-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .strategy-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .resources-section {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .resource-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .resource-link {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--text);
+            transition: all 0.3s ease;
+        }
+
+        .resource-link:hover {
+            background: var(--primary);
+            color: white;
+        }
+        .story-container {
+        position: relative;
+        margin-bottom: 2rem;
+        padding: 1.5rem;
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+        .narration-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.3s ease;
+            margin-bottom: 1rem;
+        }
+
+        .narration-btn:hover {
+            background: var(--gradient-end);
+            transform: translateY(-2px);
+        }
+
+        .narration-btn i {
+            font-size: 1.2rem;
+        }
+
+        .narration-btn.playing {
+            background: var(--accent);
+        }
+
+        .story-title {
+            font-size: 1.25rem;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+
+        .go-back-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            padding: 12px 24px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1.1rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .go-back-btn:hover {
+            background: var(--gradient-end);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="go-back-btn">
+            <i class="fas fa-arrow-left"></i> Go Back
+        </a>
+        <section class="hero-section">
+            <h1>Welcome to Your Wellness Journey</h1>
+            <p>Your mental health matters. Track your progress, reflect on your feelings, and find strategies to manage stress.</p>
+        </section>
+
+        <div id="imageModal" class="modal">
+            <span class="close">&times;</span>
+            <div class="modal-content">
+                <img id="modalImage" src="" alt="Full size image">
+            </div>
+        </div>
+
+        <div class="mood-tracker">
+            <h2><i class="fas fa-heart"></i> Daily Wellness Check</h2>
+            <p>How are you feeling today?</p>
+            <div class="mood-buttons">
+                <button class="mood-btn" onclick="selectMood(this, 5)">😊</button>
+                <button class="mood-btn" onclick="selectMood(this, 4)">🙂</button>
+                <button class="mood-btn" onclick="selectMood(this, 3)">😐</button>
+                <button class="mood-btn" onclick="selectMood(this, 2)">😔</button>
+                <button class="mood-btn" onclick="selectMood(this, 1)">😢</button>
+            </div>
+            <div id="mood-feedback" class="mood-feedback"></div>
+        </div>
+
+        <section class="cheer-up-section">
+            <div class="cheer-up-heading">
+                <h2><i class="fas fa-laugh-beam"></i> Cheer Yourself Up</h2>
+            </div>
+            <div class="funny-images-grid">
+                <div class="funny-image-card">
+                    <img src="funny.jpg" alt="Funny moment 1">
+                </div>
+                <div class="funny-image-card">
+                    <img src="funny1.jpg" alt="Funny moment 2">
+                </div>
+                <div class="funny-image-card">
+                    <img src="funny2.jpg" alt="Funny moment 3">
+                </div>
+                <div class="funny-image-card">
+                    <img src="funny3.jpg" alt="Funny moment 4">
+                </div>
+                <div class="funny-image-card">
+                    <img src="funny4.png" alt="Funny moment 5">
+                </div>
+            </div>
+        </section>
+
+        <section class="image-grid">
+            <div class="image-card">
+                <img src="happy.png" alt="Community Support">
+                <div class="image-card-content">
+                    <h3>Community Support</h3>
+                    <p>Connect with others who understand what you're going through. You're not alone.</p>
+                </div>
+            </div>
+            <div class="image-card">
+                <img src="workout.png" alt="Physical Exercise">
+                <div class="image-card-content">
+                    <h3>Stay Active</h3>
+                    <p>Even a short walk can boost your mood and reduce anxiety.</p>
+                </div>
+            </div>
+            <div class="image-card">
+                <img src="sleep.png" alt="Quality Sleep">
+                <div class="image-card-content">
+                    <h3>Quality Sleep</h3>
+                    <p>Create a calming bedtime routine to improve your sleep quality.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="gratitude-section">
+            <h2>Gratitude Journal</h2>
+            <textarea class="gratitude-input" placeholder="What are you grateful for today? Even small things count..."></textarea>
+            <div class="wellness-tip">
+                <i class="fas fa-lightbulb"></i>
+                <p>Writing down three things you're grateful for each day can significantly improve your mood over time.</p>
+            </div>
+        </section>
+
+        <section class="coping-strategies">
+            <div class="strategy-card">
+                <h3><i class="fas fa-brain"></i> Mindfulness Practice</h3>
+                <p>Take 5 minutes to observe your thoughts without judgment. Focus on your breath.</p>
+            </div>
+            <div class="strategy-card">
+                <h3><i class="fas fa-music"></i> Music Therapy</h3>
+                <p>Create a playlist of songs that lift your mood or help you relax.</p>
+            </div>
+            <div class="strategy-card">
+                <h3><i class="fas fa-tree"></i> Nature Connection</h3>
+                <p>Spend time outdoors. Nature has a natural way of reducing stress and anxiety.</p>
+            </div>
+            <div class="strategy-card">
+                <h3><i class="fas fa-pen"></i> Creative Expression</h3>
+                <p>Draw, write, or create something - creativity can be very therapeutic.</p>
+            </div>
+        </section>
+
+
+        <section class="real-life-examples">
+            <h2><i class="fas fa-users"></i> Real Life Examples</h2>
+            <div class="examples-content">
+                <div class="story-container">
+                    <h3 class="story-title">Michael Phelps: From Despair to Healing</h3>
+                    <button class="narration-btn" onclick="toggleNarration(this, 'phelps-story')">
+                        <i class="fas fa-play"></i> Play Narration
+                    </button>
+                    <p id="phelps-story">
+                        Despite being the most decorated Olympian, Michael Phelps struggled deeply with depression and substance abuse. After the 2012 Olympics, he felt lost and overwhelmed by feelings of hopelessness, even contemplating suicide. The weight of expectations and the pressures of competition took a heavy toll on his mental health.
+        
+                        Phelps found his path to healing through therapy and meditation, which helped him manage his emotions and understand that asking for help is a sign of strength, not weakness. Sharing his journey publicly became a turning point, allowing him to connect with others facing similar struggles. Now, he advocates for mental health awareness and supports initiatives that encourage people to seek help, showing that even the most successful athletes can battle and overcome mental health challenges.
+                    </p>
+                </div>
+        
+                <div class="story-container">
+                    <h3 class="story-title">Dwayne "The Rock" Johnson: From Depression to Determination</h3>
+                    <button class="narration-btn" onclick="toggleNarration(this, 'rock-story')">
+                        <i class="fas fa-play"></i> Play Narration
+                    </button>
+                    <p id="rock-story">
+                        Johnson faced a deep depression after his dream of becoming a professional football player fell apart when he was cut from a Canadian football team. He felt like he had hit rock bottom, unsure of his future, and even questioned his self-worth. It was a period of darkness and doubt that left him feeling defeated.
+        
+                        Rather than giving up, Johnson redirected his energy into wrestling, eventually becoming a beloved WWE star and then transitioning into a successful acting career. Sharing his experience with depression, he inspires others to find resilience during tough times, emphasizing that setbacks can pave the way for incredible comebacks. His story shows that facing adversity head-on can lead to a renewed sense of purpose.
+                    </p>
+                </div>
+        
+                <div class="story-container">
+                    <h3 class="story-title">Words of Encouragement</h3>
+                    <button class="narration-btn" onclick="toggleNarration(this, 'encouragement-story')">
+                        <i class="fas fa-play"></i> Play Narration
+                    </button>
+                    <p id="encouragement-story">
+                        If you're feeling overwhelmed right now, remember that it's okay to struggle. Life can be incredibly challenging, and it's normal to feel lost, tired, or even hopeless at times. But just because things are tough today doesn't mean they will always be this way. You are not defined by your darkest moments, and the strength you possess to keep going, even when it feels impossible, is more powerful than you know.
+        
+                        Pain is real, and it's okay to acknowledge that. But it's also important to remember that emotions, no matter how intense, are temporary. They ebb and flow, and the heaviness you feel now won't last forever. There is hope for better days ahead, even if you can't see it yet.
+        
+                        Don't hesitate to reach out for support. It's okay to lean on others when you need to. There are people who care about you, and they want to help you navigate this journey. Remember, asking for help isn't a sign of weakness—it's a sign of courage.
+        
+                        Keep going. You're not alone, and your story isn't over.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="resources-section">
+            <h2><i class="fas fa-phone"></i> Help is Available</h2>
+            <p>If you're struggling, these resources are here for you:</p>
+            <div class="resource-links">
+                <a class="resource-link">
+                    <i class="fas fa-phone"></i> 24/7 Crisis Hotline
+                </a>
+                <a class="resource-link">
+                    <i class="fas fa-comments"></i> Online Support Groups
+                </a>
+                <a class="resource-link">
+                    <i class="fas fa-user-md"></i> Find a Therapist
+                </a>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        function selectMood(button, score) {
+            // Remove selected class from all buttons
+            document.querySelectorAll('.mood-btn').forEach(btn => btn.classList.remove('selected'));
+            
+            // Add selected class to clicked button
+            button.classList.add('selected');
+            
+            // Get feedback element
+            const feedbackElement = document.getElementById('mood-feedback');
+            
+            // Set feedback message based on score
+            let feedback = '';
+            switch(score) {
+                case 5:
+                    feedback = "That's wonderful! Your positive energy can uplift others too. Keep embracing the good moments!";
+                    break;
+                case 4:
+                    feedback = "Great to hear you're doing well! Remember this feeling and what helped you get here.";
+                    break;
+                case 3:
+                    feedback = "Taking it day by day is perfectly okay. Consider trying one of the activities below to lift your spirits.";
+                    break;
+                case 2:
+                    feedback = "It's brave of you to acknowledge how you're feeling. Remember that this is temporary, and it's okay to reach out for support.";
+                    break;
+                case 1:
+                    feedback = "We're here for you. Please know that you're not alone, and it's okay to ask for help. Consider reaching out to a trusted friend or professional.";
+                    break;
+            }
+            
+            // Display feedback
+            feedbackElement.textContent = feedback;
+            feedbackElement.style.display = 'block';
+            feedbackElement.style.backgroundColor = score > 3 ? '#e3f2fd' : '#fff3cd';
+        }
+
+        const modal = document.getElementById('imageModal');
+        const modalImg = document.getElementById('modalImage');
+        const closeBtn = document.getElementsByClassName('close')[0];
+
+        // Add click event listeners to all funny images
+        document.querySelectorAll('.funny-image-card img').forEach(img => {
+            img.onclick = function() {
+                modal.style.display = 'block';
+                modalImg.src = this.src;
+            }
+        });
+
+        // Close modal when clicking the × button
+        closeBtn.onclick = function() {
+            modal.style.display = 'none';
+        }
+
+        // Close modal when clicking outside the image
+        modal.onclick = function(event) {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        }
+
+        // Close modal with escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape' && modal.style.display === 'block') {
+                modal.style.display = 'none';
+            }
+        });
+    </script>
+    <script>
+        // Add this to your existing JavaScript
+        let currentUtterance = null;
+        let currentButton = null;
+    
+        function toggleNarration(button, textId) {
+            // If there's already narration playing, stop it
+            if (currentUtterance && speechSynthesis.speaking) {
+                speechSynthesis.cancel();
+                resetButton(currentButton);
+                
+                if (currentButton === button) {
+                    currentButton = null;
+                    currentUtterance = null;
+                    return;
+                }
+            }
+    
+            const textElement = document.getElementById(textId);
+            const text = textElement.textContent;
+    
+            // Create and configure the utterance with more natural settings
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.rate = 0.85; // Slightly slower for better clarity
+            utterance.pitch = 1.1; // Slightly higher pitch for more warmth
+            utterance.volume = 0.9; // Slightly reduced volume
+            
+            // Add natural pauses at punctuation
+            const sentences = text.split(/[.!?]+/);
+            let pausedText = sentences.join('... ');
+            utterance.text = pausedText;
+    
+            // Enhanced voice selection
+            let voices = speechSynthesis.getVoices();
+            const setPreferredVoice = () => {
+                voices = speechSynthesis.getVoices();
+                // Prioritize high-quality natural voices
+                const preferredVoices = [
+                    'Microsoft David',
+                    'Google UK English Male',
+                    'Daniel',
+                    'Alex',
+                    'Microsoft Zira',
+                    'Samantha'
+                ];
+                
+                for (let preferredVoice of preferredVoices) {
+                    const voice = voices.find(v => v.name.includes(preferredVoice));
+                    if (voice) {
+                        utterance.voice = voice;
+                        break;
+                    }
+                }
+            };
+    
+            if (voices.length === 0) {
+                speechSynthesis.addEventListener('voiceschanged', setPreferredVoice);
+            } else {
+                setPreferredVoice();
+            }
+    
+            // Update button appearance
+            button.innerHTML = '<i class="fas fa-pause"></i> Pause Narration';
+            button.classList.add('playing');
+    
+            // Store current utterance and button
+            currentUtterance = utterance;
+            currentButton = button;
+    
+            // Handle narration end
+            utterance.onend = () => resetButton(button);
+            utterance.onerror = () => resetButton(button);
+    
+            // Add slight delay before starting to prevent abrupt start
+            setTimeout(() => {
+                speechSynthesis.speak(utterance);
+            }, 100);
+        }
+    
+        function resetButton(button) {
+            if (button) {
+                button.innerHTML = '<i class="fas fa-play"></i> Play Narration';
+                button.classList.remove('playing');
+            }
+        }
+    
+        // Clean up on page unload
+        window.addEventListener('beforeunload', () => {
+            if (speechSynthesis.speaking) {
+                speechSynthesis.cancel();
+            }
+        });
+    </script>
+</body>
+</html>
