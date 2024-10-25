@@ -523,6 +523,11 @@
             <div id="mood-feedback" class="mood-feedback"></div>
         </div>
 
+        <div class="mood-graph" style="margin-top: 2rem; height: 300px;">
+            <canvas id="moodChart"></canvas>
+        </div>
+
+
         <section class="cheer-up-section">
             <div class="cheer-up-heading">
                 <h2><i class="fas fa-laugh-beam"></i> Cheer Yourself Up</h2>
@@ -660,75 +665,143 @@
             </div>
         </section>
     </div>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
     <script>
-        function selectMood(button, score) {
-            // Remove selected class from all buttons
-            document.querySelectorAll('.mood-btn').forEach(btn => btn.classList.remove('selected'));
-            
-            // Add selected class to clicked button
-            button.classList.add('selected');
-            
-            // Get feedback element
-            const feedbackElement = document.getElementById('mood-feedback');
-            
-            // Set feedback message based on score
-            let feedback = '';
-            switch(score) {
-                case 5:
-                    feedback = "That's wonderful! Your positive energy can uplift others too. Keep embracing the good moments!";
-                    break;
-                case 4:
-                    feedback = "Great to hear you're doing well! Remember this feeling and what helped you get here.";
-                    break;
-                case 3:
-                    feedback = "Taking it day by day is perfectly okay. Consider trying one of the activities below to lift your spirits.";
-                    break;
-                case 2:
-                    feedback = "It's brave of you to acknowledge how you're feeling. Remember that this is temporary, and it's okay to reach out for support.";
-                    break;
-                case 1:
-                    feedback = "We're here for you. Please know that you're not alone, and it's okay to ask for help. Consider reaching out to a trusted friend or professional.";
-                    break;
-            }
-            
-            // Display feedback
-            feedbackElement.textContent = feedback;
-            feedbackElement.style.display = 'block';
-            feedbackElement.style.backgroundColor = score > 3 ? '#e3f2fd' : '#fff3cd';
+        if (!localStorage.getItem('moodHistory')) {
+            const last7Days = [...Array(7)].map((_, i) => {
+                const date = new Date();
+                date.setDate(date.getDate() - (6 - i));
+                return {
+                    date: date.toLocaleDateString('en-US', { weekday: 'short' }),
+                    mood: null
+                };
+            });
+            localStorage.setItem('moodHistory', JSON.stringify(last7Days));
         }
 
-        const modal = document.getElementById('imageModal');
-        const modalImg = document.getElementById('modalImage');
-        const closeBtn = document.getElementsByClassName('close')[0];
+        // Initialize the chart
+let moodChart;
+function initMoodChart() {
+    const ctx = document.getElementById('moodChart').getContext('2d');
+    const moodHistory = JSON.parse(localStorage.getItem('moodHistory'));
 
-        // Add click event listeners to all funny images
-        document.querySelectorAll('.funny-image-card img').forEach(img => {
-            img.onclick = function() {
-                modal.style.display = 'block';
-                modalImg.src = this.src;
+    moodChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: moodHistory.map(day => day.date),
+            datasets: [{
+                label: 'Mood Level',
+                data: moodHistory.map(day => day.mood),
+                borderColor: '#4A90E2',
+                backgroundColor: 'rgba(74, 144, 226, 0.1)',
+                borderWidth: 2,
+                fill: true,
+                tension: 0.4,
+                pointBackgroundColor: '#4A90E2',
+                pointRadius: 5,
+                pointHoverRadius: 7
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    min: 0,
+                    max: 5,
+                    ticks: {
+                        stepSize: 1,
+                        callback: function(value) {
+                            const emojis = ['', '😢', '😔', '😐', '🙂', '😊'];
+                            return emojis[value];
+                        }
+                    },
+                    grid: {
+                        color: 'rgba(0, 0, 0, 0.1)'
+                    }
+                },
+                x: {
+                    grid: {
+                        color: 'rgba(0, 0, 0, 0.1)'
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    display: false
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            const emojis = ['😢', '😔', '😐', '🙂', '😊'];
+                            const moodValue = context.parsed.y;
+                            return moodValue ? `Mood: ${emojis[moodValue - 1]}` : 'No mood recorded';
+                        }
+                    }
+                }
             }
-        });
-
-        // Close modal when clicking the × button
-        closeBtn.onclick = function() {
-            modal.style.display = 'none';
         }
+    });
+}
 
-        // Close modal when clicking outside the image
-        modal.onclick = function(event) {
-            if (event.target === modal) {
-                modal.style.display = 'none';
-            }
-        }
+// Update the existing selectMood function
+function selectMood(button, score) {
+    // Remove selected class from all buttons
+    document.querySelectorAll('.mood-btn').forEach(btn => btn.classList.remove('selected'));
 
-        // Close modal with escape key
-        document.addEventListener('keydown', function(event) {
-            if (event.key === 'Escape' && modal.style.display === 'block') {
-                modal.style.display = 'none';
-            }
-        });
-    </script>
+    // Add selected class to clicked button
+    button.classList.add('selected');
+
+    // Get feedback element
+    const feedbackElement = document.getElementById('mood-feedback');
+
+    // Set feedback message based on score
+    let feedback = '';
+    switch(score) {
+        case 5:
+            feedback = "That's wonderful! Your positive energy can uplift others too. Keep embracing the good moments!";
+            break;
+        case 4:
+            feedback = "Great to hear you're doing well! Remember this feeling and what helped you get here.";
+            break;
+        case 3:
+            feedback = "Taking it day by day is perfectly okay. Consider trying one of the activities below to lift your spirits.";
+            break;
+        case 2:
+            feedback = "It's brave of you to acknowledge how you're feeling. Remember that this is temporary, and it's okay to reach out for support.";
+            break;
+        case 1:
+            feedback = "We're here for you. Please know that you're not alone, and it's okay to ask for help. Consider reaching out to a trusted friend or professional.";
+            break;
+    }
+
+    // Display feedback
+    feedbackElement.textContent = feedback;
+    feedbackElement.style.display = 'block';
+    feedbackElement.style.backgroundColor = score > 3 ? '#e3f2fd' : '#fff3cd';
+
+    // Update mood history
+    const moodHistory = JSON.parse(localStorage.getItem('moodHistory'));
+    const today = new Date().toLocaleDateString('en-US', { weekday: 'short' });
+
+    // Remove oldest day and add today's mood
+    moodHistory.shift();
+    moodHistory.push({ date: today, mood: score });
+
+    // Save updated history
+    localStorage.setItem('moodHistory', JSON.stringify(moodHistory));
+
+    // Update chart
+    moodChart.data.labels = moodHistory.map(day => day.date);
+    moodChart.data.datasets[0].data = moodHistory.map(day => day.mood);
+    moodChart.update();
+}
+
+// Initialize chart when page loads
+document.addEventListener('DOMContentLoaded', initMoodChart);
+</script>
+  
+
     <script>
         // Add this to your existing JavaScript
         let currentUtterance = null;
